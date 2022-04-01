@@ -21,7 +21,7 @@ def add(word, num, err=False):
     elif word in reservedWords:
         tokenList.append((Token(num, reservedWords[word], word)))
     elif word[0] == '\'' and word[-1] == '\'':
-        tokenList.append((Token(num, "INCHAR", word)))
+        tokenList.append((Token(num, "CHARC", word)))
     else:
         tokenList.append((Token(num, "ID", word)))
 
@@ -81,12 +81,20 @@ def work(lines):
             else:
                 add(line[i], num, True)
             i = i + 1
-    tokenList.append(Token(len(lines), "EOF", ""))
+    tokenList.append(Token(len(lines), "EOF", "EOF"))
     return tokenList
 
 
-with open("./data/1.txt") as file:
+with open("../data/1.txt") as file:
     lines = file.readlines()
     work(lines)
+        #print(f"line: {x.line}, lex: {x.lex}, sem: {x.sem}")
+
+with open("../data/TokenList.txt", "w") as file:
     for x in tokenList:
-        print(f"line: {x.line}, lex: {x.lex}, sem: {x.sem}")
+        if x.sem in delimiters:
+            file.write(f"{x.line} Other {x.sem}\n")
+        elif x.sem in reservedWords:
+            file.write(f"{x.line} Reserved_word {x.lex}\n")
+        else:
+            file.write(f"{x.line} {x.lex} {x.sem}\n")

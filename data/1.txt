@@ -4,6 +4,7 @@ type i=integer;
 var i x;
     sarray y;
     integer ss;
+    char cc;
 procedure sd(integer a);
 begin
     write(a)
@@ -16,6 +17,6 @@ begin
         sd(x);
         ss:=ss+1
     endwh
-    cc:='2233a'
+    cc:='a'
 end.
 

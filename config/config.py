@@ -24,7 +24,7 @@ reservedWords = {
     "id": "ID",
     "intc": "INTC",
     "character": "CHARACTER",
-}
+}#保留字
 
 delimiters = {
     ".": "DOT",
@@ -43,4 +43,4 @@ delimiters = {
     ";": "SEMI",
     "(": "LMIDPAREN",
     ")": "RMIDPAREN",
-}
+}#运算符、限界符
