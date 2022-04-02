@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="943484b7-3775-45d0-9016-2b893bbc3a40" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/LL1.py" afterDir="false" />
+    <list default="true" id="943484b7-3775-45d0-9016-2b893bbc3a40" name="Changes" comment="predict集计算添加及LL1分析程序部分">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/1.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lexicalaAnalyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/lexicalaAnalyzer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/TokenList.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/TokenList.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LL1.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/LL1.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -324,8 +323,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.LL1" />
-        <item itemvalue="Python.te" />
         <item itemvalue="Python.lexicalaAnalyzer" />
+        <item itemvalue="Python.te" />
       </list>
     </recent_temporary>
   </component>
@@ -340,6 +339,21 @@
       <workItem from="1648298557126" duration="11342000" />
       <workItem from="1648312667146" duration="1999000" />
     </task>
+    <task id="LOCAL-00001" summary="predict集计算添加及LL1分析程序部分">
+      <created>1648833750415</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1648833750415</updated>
+    </task>
+    <task id="LOCAL-00002" summary="predict集计算添加及LL1分析程序部分">
+      <created>1648833777594</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1648833777594</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -356,5 +370,9 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="predict集计算添加及LL1分析程序部分" />
+    <option name="LAST_COMMIT_MESSAGE" value="predict集计算添加及LL1分析程序部分" />
   </component>
 </project>

@@ -77,6 +77,7 @@
 17 Other +
 17 INTC 1
 18 Reserved_word ENDWH
+18 Other ;
 19 ID cc
 19 Other :=
 19 CHARC 'a'

@@ -16,7 +16,7 @@ begin
         x:=y[ss];
         sd(x);
         ss:=ss+1
-    endwh
+    endwh;
     cc:='a'
 end.
 
