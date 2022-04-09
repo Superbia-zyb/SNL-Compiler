@@ -1,24 +1,6 @@
 from te import getPredict
-
-# 定义栈
-class Stack:
-    def __init__(self):
-        self.items = []
-
-    def isEmpty(self):
-        return self.items == []
-
-    def push(self, item):
-        self.items.append(item)
-
-    def pop(self):
-        return self.items.pop()
-
-    def peek(self):
-        return self.items[len(self.items) - 1]
-
-    def size(self):
-        return len(self.items)
+from config.LL1_config import Stack, Tree
+from grammarProcess import predict1
 
 # 分析表建立函数
 def CreateAnaTable(predict, grammar, only_right):
@@ -69,6 +51,8 @@ SignStack.push('Program')
 table_row, table_col = CreateAnaTable(predict, grammar, only_right)
 
 # LL1驱动程序
+syntax_tree = Tree()
+PreNode = syntax_tree.root
 while not SignStack.isEmpty():
     sign = SignStack.peek()
     toke = TokenStack.peek()
@@ -90,6 +74,10 @@ while not SignStack.isEmpty():
             for i in range(length):
                 if rig[length - 1 - i] != 'NULL':
                     SignStack.push(rig[length - 1 - i])
+            PreNode = predict1( judge + 1, syntax_tree, toke, PreNode)
+            # if toke[0] == '21':
+            # print(judge + 1)
+            # syntax_tree.getInfNode()
         else:
             print('error1')
             break
@@ -104,3 +92,4 @@ if TokenStack.peek()[2] != 'EOF':
     print('error3')
 else:
     print('right')
+syntax_tree.getInfNode()

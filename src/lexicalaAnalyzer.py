@@ -85,7 +85,7 @@ def work(lines):
     return tokenList
 
 
-with open("../data/1.txt") as file:
+with open("../data/c9.txt") as file:
     lines = file.readlines()
     work(lines)
         #print(f"line: {x.line}, lex: {x.lex}, sem: {x.sem}")
