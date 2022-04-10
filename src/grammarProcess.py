@@ -338,7 +338,7 @@ def process50(Tree, toke, preNode):
     DecK = Tree.stack.pop()
     DecK.Lineno = toke[0]
     DecK.judge = True
-    DecK.attr[1]['paramt'] = 'valparamtype'
+    DecK.attr[1]['paramt'] = 'valparamType'
     DecK.Sibling = Node('DecK')
     Tree.stack.push(DecK.Sibling)
     return DecK

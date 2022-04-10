@@ -71,7 +71,7 @@ class Tree(object):
                 stm = ''
                 if Line > 0:
                     for i in range(Line):
-                        stm += '  '
+                        stm += '   '
                 stm += node.nodeKind
                 stm = stm + ' ' + str(node.Lineno)
                 if node.nodeKind == 'DecK':

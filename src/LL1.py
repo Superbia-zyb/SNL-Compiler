@@ -1,6 +1,6 @@
 from config.LL1_config import Stack, Tree
 from grammarProcess import predict1
-from te import getPredict
+from predict import getPredict
 
 
 # 分析表建立函数
@@ -93,5 +93,5 @@ while not SignStack.isEmpty():
 if TokenStack.peek()[2] != 'EOF':
     print('error3')
 else:
-    print('right')
+    print('success')
 syntax_tree.getInfNode()

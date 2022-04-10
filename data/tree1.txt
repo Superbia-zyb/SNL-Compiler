@@ -12,10 +12,8 @@ ProK 0
       ProcDecK 8 q
          DecK 8 valparamType IntegerK i
          DecK 8 valparamType IntegerK j
-         TypeK 0
          VarK 9
             DecK 9 IntegerK a
-         ProcDecK 0
          StmLK 10
             StmtK 11 AssignK
                ExpK 11 IdK IdV a
