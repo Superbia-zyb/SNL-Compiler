@@ -1,6 +1,7 @@
-from te import getPredict
 from config.LL1_config import Stack, Tree
 from grammarProcess import predict1
+from te import getPredict
+
 
 # 分析表建立函数
 def CreateAnaTable(predict, grammar, only_right):
@@ -25,19 +26,20 @@ def CreateAnaTable(predict, grammar, only_right):
                 table_col[row][g] = i
     return table_row, table_col
 
+
 # 初始化
 TokenStack = Stack()
 SignStack = Stack()
 grammar = []
 predict, left, only_right = getPredict()
-with open("../data/3.txt") as file:
+with open("../data/grammar.txt") as file:
     lines = file.readlines()
     for line in lines:
         line = str(line).replace("\n", "")
         pos = line.split(" ", 20)
-        x = {'left':pos[0],'right':pos[2:]}
+        x = {'left': pos[0], 'right': pos[2:]}
         grammar.append(x)
-with open("../data/TokenList.txt") as file:
+with open("../data/token.txt") as file:
     lines = file.readlines()
     nums = len(lines)
     for i in range(nums):
@@ -64,17 +66,17 @@ while not SignStack.isEmpty():
         token = 'CHARC'
     else:
         token = toke[2]
-    if sign in left: #如果是非终极符，则用语法进行替换
+    if sign in left:  # 如果是非终极符，则用语法进行替换
         row = table_row[sign]
         judge = table_col[row][token]
-        if judge != -1 :
+        if judge != -1:
             SignStack.pop()
             rig = grammar[judge]['right']
             length = len(rig)
             for i in range(length):
                 if rig[length - 1 - i] != 'NULL':
                     SignStack.push(rig[length - 1 - i])
-            PreNode = predict1( judge + 1, syntax_tree, toke, PreNode)
+            PreNode = predict1(judge + 1, syntax_tree, toke, PreNode)
             # if toke[0] == '21':
             # print(judge + 1)
             # syntax_tree.getInfNode()
@@ -82,10 +84,10 @@ while not SignStack.isEmpty():
             print('error1')
             break
     else:
-        if sign == token: #相等则进行匹配
+        if sign == token:  # 相等则进行匹配
             SignStack.pop()
             TokenStack.pop()
-        else:             #不相等出错
+        else:  # 不相等出错
             print('error2')
             break
 if TokenStack.peek()[2] != 'EOF':

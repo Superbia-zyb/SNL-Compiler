@@ -76,7 +76,7 @@ def work(lines):
                 i = i + 1
             elif c in delimiters:
                 add(c, num)
-            elif c == " ":
+            elif c == " " or c == "	":
                 _ = c
             else:
                 add(line[i], num, True)
@@ -88,9 +88,9 @@ def work(lines):
 with open("../data/c9.txt") as file:
     lines = file.readlines()
     work(lines)
-        #print(f"line: {x.line}, lex: {x.lex}, sem: {x.sem}")
+    # print(f"line: {x.line}, lex: {x.lex}, sem: {x.sem}")
 
-with open("../data/TokenList.txt", "w") as file:
+with open("../data/token.txt", "w") as file:
     for x in tokenList:
         if x.sem in delimiters:
             file.write(f"{x.line} Other {x.sem}\n")

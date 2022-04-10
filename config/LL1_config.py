@@ -1,4 +1,3 @@
-
 # 定义栈
 class Stack:
     def __init__(self):
@@ -19,19 +18,20 @@ class Stack:
     def size(self):
         return len(self.items)
 
+
 class Node:
-    def __init__(self, nodeKind, Lineno = 0, type_name = 'none', judge = False):
+    def __init__(self, nodeKind, Lineno=0, type_name='none', judge=False):
         self.nodeKind = nodeKind
         self.child = []
         self.Sibling = None
         self.Lineno = Lineno
-        self.kind = {'dec':' ', 'stmt':' ', 'exp':' '}
-        self.idnum = 0 # 一个节点中的标识符的个数
+        self.kind = {'dec': ' ', 'stmt': ' ', 'exp': ' '}
+        self.idnum = 0  # 一个节点中的标识符的个数
         self.name = []
         self.type_name = type_name
-        ArrayAttr = {'low':0, 'up':0, 'childType':' '}
-        procAttr = {'paramt':' '}
-        ExpAttr = {'op':' ', 'val':0, 'varkind':' ', 'type':' '}
+        ArrayAttr = {'low': 0, 'up': 0, 'childType': ' '}
+        procAttr = {'paramt': ' '}
+        ExpAttr = {'op': ' ', 'val': 0, 'varkind': ' ', 'type': ' '}
         attr = []
         attr.append(ArrayAttr)
         attr.append(procAttr)
@@ -40,6 +40,7 @@ class Node:
         self.judge = judge
         self.dela = False
         self.ProFirst = True
+
 
 class Tree(object):
     def __init__(self):
@@ -58,7 +59,7 @@ class Tree(object):
         self.stack.push(self.root.child[1])
         self.stack.push(self.root.child[0])
 
-    def getInfNode(self, priJudge = False):
+    def getInfNode(self, priJudge=False):
         stack1 = Stack()
         stack1.push(self.root)
         stackLine = Stack()
@@ -89,14 +90,15 @@ class Tree(object):
                 if not (node.nodeKind == 'ProcDecK' and node.ProFirst and node.judge):
                     for i in range(node.idnum):
                         stm = stm + ' ' + str(node.name[i])
-                b = ['TypeK','VarK','ProcDecK']
+                b = ['TypeK', 'VarK', 'ProcDecK']
                 if node.judge or ((not node.judge) and (node.nodeKind in b)):
                     if priJudge:
                         print(stm)
                     stm += '\n'
                     file.write(stm)
                 if node.Sibling != None:
-                    if not(node.nodeKind == 'ProcDecK' and node.Sibling.nodeKind == 'ProcDecK' and (not node.Sibling.judge)):
+                    if not (node.nodeKind == 'ProcDecK' and node.Sibling.nodeKind == 'ProcDecK' and (
+                            not node.Sibling.judge)):
                         stack1.push(node.Sibling)
                         stackLine.push(Line)
                 num = len(node.child)
