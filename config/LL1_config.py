@@ -1,4 +1,6 @@
 # 定义栈
+
+
 class Stack:
     def __init__(self):
         self.items = []
@@ -59,12 +61,12 @@ class Tree(object):
         self.stack.push(self.root.child[1])
         self.stack.push(self.root.child[0])
 
-    def getInfNode(self, priJudge=False):
+    def getInfNode(self, tree_path, priJudge=False):
         stack1 = Stack()
         stack1.push(self.root)
         stackLine = Stack()
         stackLine.push(0)
-        with open("../data/syntax_tree.txt", "w") as file:
+        with open(tree_path, "w") as file:
             while not stack1.isEmpty():
                 node = stack1.pop()
                 Line = stackLine.pop()
@@ -91,7 +93,7 @@ class Tree(object):
                     for i in range(node.idnum):
                         stm = stm + ' ' + str(node.name[i])
                 b = ['TypeK', 'VarK', 'ProcDecK']
-                if node.judge or ((not node.judge) and (node.nodeKind in b)):
+                if node.judge:  # or ((not node.judge) and (node.nodeKind in b)):
                     if priJudge:
                         print(stm)
                     stm += '\n'

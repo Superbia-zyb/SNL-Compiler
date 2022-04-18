@@ -1,3 +1,5 @@
+import os
+
 from config.config import delimiters, reservedWords
 
 
@@ -85,16 +87,22 @@ def work(lines):
     return tokenList
 
 
-with open("../data/p1.txt") as file:
-    lines = file.readlines()
-    work(lines)
-    # print(f"line: {x.line}, lex: {x.lex}, sem: {x.sem}")
+def lex(pro_path, token_path):
+    if not os.path.exists(pro_path):
+        print(f"Open pro_path:{pro_path} failed")
+        return -1
+    with open(pro_path) as file:
+        lines = file.readlines()
+        work(lines)
+        # print(f"line: {x.line}, lex: {x.lex}, sem: {x.sem}")
 
-with open("../data/token.txt", "w") as file:
-    for x in tokenList:
-        if x.sem in delimiters:
-            file.write(f"{x.line} Other {x.sem}\n")
-        elif x.sem in reservedWords:
-            file.write(f"{x.line} Reserved_word {x.lex}\n")
-        else:
-            file.write(f"{x.line} {x.lex} {x.sem}\n")
+    with open(token_path, "w") as file:
+        for x in tokenList:
+            if x.sem in delimiters:
+                file.write(f"{x.line} Other {x.sem}\n")
+            elif x.sem in reservedWords:
+                file.write(f"{x.line} Reserved_word {x.lex}\n")
+            else:
+                file.write(f"{x.line} {x.lex} {x.sem}\n")
+    print("Generate token success")
+    return 0

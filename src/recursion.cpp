@@ -143,17 +143,13 @@ void error(int ll,string s){
 void print_null(int n){
 	while(n--!=0) output<<"   ";
 }
-bool checkNull(Node *t)
-{
-    for(int i=0; i<3; i++)
-        if(t->child[i] != NULL)
-           return true;
-    return false;
-}
 void print_tree(Node *t,int n){
 while(t!=NULL){
+	if((t->nodekind==TypeK||t->nodekind==VarK||t->nodekind==ProcDecK||t->nodekind==StmLK)&&(t->child[0]==NULL)) {
+		t=t->sibling;
+		continue;
+	}
 	print_null(n);
-	//if(!checkNull(t)) t->lineno=0;
 	if(t->nodekind==ProK) {
 		output<<"ProK "<<t->lineno<<endl;
 	}
@@ -264,17 +260,16 @@ while(t!=NULL){
 			VarKind s=t->attr.ExpAttr.varkind;
 			if(s==0) ss="IdV";
 			else if(s==1) ss="ArrayMembV";
-			else if(s==2)ss="FieldMembV";
-			else output<<"error!!!"<<t->lineno<<endl;
+			else ss="FieldMembV";
 			output<<"IdK "<<ss<<" "<<t->name[0]<<endl;
+//			s=={IdV,ArrayMembV,FieldMembV} VarKind s;
+//			s==
 		}
 	}
 	else {
 		error(t->lineno,"the nodekind is not correct");
 	}
-	for(int i=0;i<3;i++)
-    	if(t->child[i]!=NULL)
-    	    print_tree(t->child[i],n+1);//打印儿子节点
+	for(int i=0;i<3;i++) if(t->child[i]!=NULL) print_tree(t->child[i],n+1);//打印儿子节点
 	t=t->sibling;//打印兄弟节点
 }
 }
@@ -285,7 +280,6 @@ void match(string s){
 Node *init_node(){
 	Node *t=new(Node);
 	t->attr.ProcAttr.paramt=none;
-	t->attr.ExpAttr.varkind=ArrayMembV;
 	t->work=true;
 	t->idnum=0;
 	for(int i=0;i<3;i++) t->child[i]=NULL;
@@ -299,20 +293,20 @@ Node *init_node(){
 Node *factor(){
 	//output<<"factor"<<endl;
 	if(type=="INTC"){
-		Node *t=init_node();
-		t->nodekind=ExpK;
-		t->kind.exp=ConstK;
-		t->attr.ExpAttr.val=atoi(token.c_str());
+		Node *t=init_node();t->nodekind=ExpK;t->kind.exp=ConstK;t->attr.ExpAttr.val=atoi(token.c_str());
 		read_token();return t;
 	}
 	else if(type=="ID"){
 		return variable();
 	}
 	else if(token=="("){
+		//output<<"====================="<<token<<endl;
 		read_token();
-		return Exp();
+		Node *t= Exp();
 		if(token!=")")error(line,"there is no ) to match");
+
 		read_token();
+		return t;
 	}
 	else {
 		error(line,"there is no ( ID INTC to match");
@@ -346,7 +340,7 @@ Node *simple_exp(){
 	}
 	return t;
 }
-Node *Exp(){
+Node *Exp(){//v1-(10-11)
 	//output<<"Exp"<<endl;
 	Node *t=simple_exp();
 	//read_token();
@@ -365,7 +359,7 @@ void variMore(Node *t){
 //	output<<token<<endl;
 //	output<<has_unread<<endl;
 	//if(has_unread==false) read_token();has_unread=false;
-	vector<string> s={"+", "ELSE", "=", "DO", "FI", "<", "]", ";", "*", ")", "ENDWH", "-", ",", "END", "/",":=", "THEN"};
+	vector<string> s={"+", "ELSE", "=", "DO", "FI", "<", "]", ";", "*", ")", "ENDWH", "-", ",", "END", "/", ":=", "THEN"};
 //	output<<token<<endl;
 	if(find(s.begin(),s.end(),token)!=s.end()){
 		//output<<"has return"<<endl;
@@ -429,7 +423,7 @@ Node *fieldvar(){
 	fieldvarMore(t);
 	return t;
 }
-Node *AssignmentRest(){
+Node *AssignmentRest(){//v1-(10-11)
 	//output<<"AssignmentRest"<<endl;
 	Node *t=init_node();t->nodekind=StmtK;t->kind.stmt=AssignK;
 	Node *p=init_node();p->nodekind=ExpK;p->kind.exp=VariK;p->name[p->idnum++]=temp_name;
@@ -480,7 +474,7 @@ Node *CallStmRest(){
 	read_token();
 	return t;
 }
-Node *AssCall(){
+Node *AssCall(){//else 后面的部分
 	//output<<"AssCall"<<endl;
 	//read_token();
 	if(token=="(") {return CallStmRest();
@@ -594,7 +588,9 @@ Node *StmMore(){//只争对两个循环
 		return NULL;
 	}
 	else {
-		read_token();error(line,"there is no correct to match");return NULL;
+//
+		error(line,"there is no correct to match1");output<<" "<<token<<endl;return NULL;
+		read_token();
 	}
 }
 Node *StmList(){//进入时是语句第一个词
@@ -602,6 +598,7 @@ Node *StmList(){//进入时是语句第一个词
 	if(token=="END") return NULL;
 	Node *t=Stm();//退出时要求语句第一个词还没有读入 ，即还是上一条语句的最后一词 ；或ENDWH FI ELSE END的下一个
 	//read_token();
+	//output<<"------------------"<<token<<endl;
 	Node *p=StmMore();
 	t->sibling=p;
 	return t;
@@ -976,8 +973,11 @@ Node *TypeDec(){
 Node *declare_part(){
 	//read_token();
 	Node *type_t=init_node();type_t->nodekind=TypeK;type_t->child[0]=TypeDec();
-	Node *var_t=init_node();var_t->nodekind=VarK;var_t->child[1]=VarDec();
-	Node *proc_deck_t=init_node();proc_deck_t->nodekind=ProcDecK;proc_deck_t->child[2]=ProcDec();
+	Node *var_t=init_node();var_t->nodekind=VarK;var_t->child[0]=VarDec();
+	Node *proc_deck_t=init_node();proc_deck_t->nodekind=ProcDecK;proc_deck_t->child[0]=ProcDec();
+
+
+
 	type_t->sibling=var_t;var_t->sibling=proc_deck_t;
 	return type_t;
 }
@@ -996,9 +996,7 @@ Node* program(){
 	Node *q=declare_part();
 	Node *s=program_body();
 	Node *root=init_node();root->nodekind=ProK;
-	root->child[0]=t;
-	root->child[1]=q;
-	root->child[2]=s;
+	root->child[0]=t; root->child[1]=q; root->child[2]=s;
 	if(token!=".") error(line,"there id no . in the end");
 	read_token();
 	return root;
@@ -1011,10 +1009,11 @@ Node* parse(){
 }
 int main(){
 	input.open("../data/token.txt");
-	if(!input) {cout<<"Error:cannot find or open the specified file!";return 0;}
-	output.open("../data/tree1.txt");
-	if(!output) {cout<<"Error:cannot find or open the specified file!";return 0;}
+	if(!input) {output<<"Error:cannot find or open the specified file!";return 0;}
+	output.open("../data/syntax_tree.txt");
+	if(!output) {output<<"Error:cannot find or open the specified file!";return 0;}
 	Node *head=parse();
 	print_tree(head,0);
 }
 }
+

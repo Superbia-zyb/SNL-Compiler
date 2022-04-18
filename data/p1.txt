@@ -1,24 +1,41 @@
 program p
 type  t1 = integer;
 w1=record
-integer x;
+        integer x;
         integer y;
+        char cx;
+        char cy;
+        array[0..5] of char cc;
         end;
-var integer v1,v2;
-array[0..5] of integer a;
-procedure q(integer i;integer j);
+var integer v1,v2; char c1,c2,v1;
+array[0..4] of integer a;
+procedure q(integer i, j);
 var integer a;
-begin 
+begin
 a:=i;
    write(a)
-end    
+end
+
+procedure p(integer i, j);
+var integer b;
+    procedure qq(char i, j);
+    var char a;
+    begin
+    a:=i;
+       write(a)
+    end
 begin
-  read(v1);
+b:=i+j
+end
+
+begin
+read(v1);
 write(v1+v2);
 if v1<10
-then v1:=v1+10
-else v1:=v1-10
+then v1:=v1+10+11
+else v1:=v1-(10-11)
 fi;
 q(v1,10);
-a[2]:=a[3]+4
+a[2]:=a[3]+(4-6);
+p(4,5)
 end. 
