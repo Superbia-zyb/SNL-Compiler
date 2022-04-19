@@ -1,6 +1,4 @@
 # 定义栈
-
-
 class Stack:
     def __init__(self):
         self.items = []
@@ -22,15 +20,15 @@ class Stack:
 
 
 class Node:
-    def __init__(self, nodeKind, Lineno=0, type_name='none', judge=False):
+    def __init__(self, nodeKind, Lineno=0, judge=False):
         self.nodeKind = nodeKind
         self.child = []
         self.Sibling = None
+        self.father = None
         self.Lineno = Lineno
         self.kind = {'dec': ' ', 'stmt': ' ', 'exp': ' '}
         self.idnum = 0  # 一个节点中的标识符的个数
         self.name = []
-        self.type_name = type_name
         ArrayAttr = {'low': 0, 'up': 0, 'childType': ' '}
         procAttr = {'paramt': ' '}
         ExpAttr = {'op': ' ', 'val': 0, 'varkind': ' ', 'type': ' '}
@@ -40,8 +38,6 @@ class Node:
         attr.append(ExpAttr)
         self.attr = attr
         self.judge = judge
-        self.dela = False
-        self.ProFirst = True
 
 
 class Tree(object):
@@ -61,12 +57,12 @@ class Tree(object):
         self.stack.push(self.root.child[1])
         self.stack.push(self.root.child[0])
 
-    def getInfNode(self, tree_path, priJudge=False):
+    def getInfNode(self, TreePath, priJudge=False):
         stack1 = Stack()
         stack1.push(self.root)
         stackLine = Stack()
         stackLine.push(0)
-        with open(tree_path, "w") as file:
+        with open(TreePath, "w") as file:
             while not stack1.isEmpty():
                 node = stack1.pop()
                 Line = stackLine.pop()
@@ -74,7 +70,10 @@ class Tree(object):
                 if Line > 0:
                     for i in range(Line):
                         stm += '   '
-                stm += node.nodeKind
+                if node.nodeKind != 'ProcK':
+                    stm += node.nodeKind
+                else:
+                    stm += 'ProcDecK'
                 stm = stm + ' ' + str(node.Lineno)
                 if node.nodeKind == 'DecK':
                     if node.attr[1]['paramt'] != ' ':
@@ -89,11 +88,10 @@ class Tree(object):
                     stm = stm + ' ' + node.kind['exp']
                     if node.attr[2]['varkind'] != ' ':
                         stm = stm + ' ' + node.attr[2]['varkind']
-                if not (node.nodeKind == 'ProcDecK' and node.ProFirst and node.judge):
-                    for i in range(node.idnum):
-                        stm = stm + ' ' + str(node.name[i])
-                b = ['TypeK', 'VarK', 'ProcDecK']
-                if node.judge:  # or ((not node.judge) and (node.nodeKind in b)):
+                for i in range(node.idnum):
+                    stm = stm + ' ' + str(node.name[i])
+                b = ['TypeK', 'VarK', 'ProcK']
+                if node.judge or ((not node.judge) and (node.nodeKind in b)):
                     if priJudge:
                         print(stm)
                     stm += '\n'
@@ -104,11 +102,7 @@ class Tree(object):
                         stack1.push(node.Sibling)
                         stackLine.push(Line)
                 num = len(node.child)
-                if node.nodeKind == 'ProcDecK' and node.ProFirst and node.judge:
-                    node.ProFirst = False
-                    stack1.push(node)
-                    stackLine.push(Line + 1)
-                elif num > 0:
+                if num > 0:
                     for i in range(num):
                         stack1.push(node.child[num - 1 - i])
                         stackLine.push(Line + 1)
