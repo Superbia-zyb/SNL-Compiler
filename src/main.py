@@ -1,4 +1,4 @@
-from LL1 import ll1
+from LL1 import LL1
 from LexicalaAnalyzer import lex
 from Recursion import recurse
 from SemanticAnalysis import semantic
@@ -6,6 +6,7 @@ from SemanticAnalysis import semantic
 pro_path = "../data/p1.txt"
 token_path = "../data/token.txt"
 tree_path = "../data/syntax_tree.txt"
+gram_path = "../data/grammar.txt"
 
 
 def work(col=1):
@@ -13,7 +14,10 @@ def work(col=1):
     if err != 0:
         return
     if col:
-        err = ll1(token_path, tree_path)
+        # err = ll1(token_path, tree_path)
+        ll1 = LL1(gram_path, token_path, tree_path)
+        ll1.run()
+        err, message = ll1.showError()
     else:
         err = recurse(token_path)
     if err != 0:
@@ -22,4 +26,4 @@ def work(col=1):
     err = semantic(tree_path)
 
 
-work(0)
+work(1)

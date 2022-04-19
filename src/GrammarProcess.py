@@ -19,7 +19,7 @@ def judgeType(op):
     a = ['+', '-', '*', '/', '=', '<']
     if op in a:
         b = 'OpK'
-    elif op.isdigit():
+    elif op.isdigit() or ('\'' in op and len(op) == 3):
         b = 'ConstK'
     else:
         b = 'IdK'
@@ -34,7 +34,6 @@ def copyNode(x, y):
     x.kind = y.kind
     x.idnum = y.idnum  # 一个节点中的标识符的个数
     x.name = y.name
-    x.type_name = y.type_name
     x.attr = y.attr
     x.judge = y.judge
 
@@ -229,8 +228,11 @@ def process32(Tree, toke, preNode):
     VarK.judge = True
     VarK.Lineno = toke[0]
     VarK.child.append(Node('DecK'))
-    VarK.Sibling = Node('ProcDecK')
-    Tree.stack.push(VarK.Sibling)
+    VarK.Sibling = Node('ProcK')
+    VarK.Sibling.judge = True
+    VarK.Sibling.child.append(Node('ProcDecK'))
+    VarK.Sibling.child[0].father = VarK.Sibling
+    Tree.stack.push(VarK.Sibling.child[0])
     Tree.stack.push(VarK.child[0])
     return VarK
 
@@ -283,10 +285,15 @@ def process41(Tree, toke, preNode):
     elif ProcDecK == 'TypeK':
         ProcDecK.Sibling = Node('VarK')
         ProcDecK = ProcDecK.Sibling
-        ProcDecK.Sibling = Node('ProcDecK')
-        ProcDecK = ProcDecK.Sibling
+        ProcDecK.Sibling = Node('ProcK')
+        ProcDecK.Sibling.judge = True
+        ProcDecK.Sibling.child.append(Node('ProcDecK'))
+        ProcDecK.Sibling.child[0].father = ProcDecK.Sibling
+        ProcDecK = ProcDecK.Sibling.child[0]
     ProcDecK.judge = True
     ProcDecK.Lineno = toke[0]
+    if ProcDecK.father != None:
+        ProcDecK.father.Lineno = toke[0]
     ProcDecK.child.append(Node('DecK'))
     ProcDecK.child.append(Node('TypeK'))
     ProcDecK.child.append(Node('StmLK'))
