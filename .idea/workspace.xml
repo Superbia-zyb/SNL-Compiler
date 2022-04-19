@@ -5,21 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="943484b7-3775-45d0-9016-2b893bbc3a40" name="Changes" comment="LL1驱动程序">
-      <change afterPath="$PROJECT_DIR$/src/SemanticAnalysis.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/LL1_config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config/LL1_config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/p1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/p1.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/p2.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/p2.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/syntax_tree.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/syntax_tree.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/token.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/token.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tree1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/tree1.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LL1.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/LL1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Recursion.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Recursion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/grammarProcess.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/GrammarProcess.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/lexicalaAnalyzer.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/LexicalaAnalyzer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SemanticAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/SemanticAnalysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/recursion.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/recursion.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/work" beforeDir="false" afterPath="$PROJECT_DIR$/src/work" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -188,9 +181,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="/opt/anaconda3/envs/spbenv/bin/python" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -232,9 +225,9 @@
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
+      <option name="SDK_HOME" value="/opt/anaconda3/envs/spbenv/bin/python" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
@@ -437,17 +430,21 @@
     <option name="LAST_COMMIT_MESSAGE" value="LL1驱动程序" />
   </component>
   <component name="XDebuggerManager">
-    <watches-manager>
-      <configuration name="PythonConfigurationType">
-        <watch expression="sl" language="Python" />
-      </configuration>
-    </watches-manager>
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint type="python-exception">
+          <properties notifyOnTerminate="true" exception="BaseException">
+            <option name="notifyOnTerminate" value="true" />
+          </properties>
+        </breakpoint>
+      </default-breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/SNL_Compiler$main.coverage" NAME="main Coverage Results" MODIFIED="1650296420322" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/SNL_Compiler$main.coverage" NAME="main Coverage Results" MODIFIED="1650377326361" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/SNL_Compiler$LL1.coverage" NAME="LL1 Coverage Results" MODIFIED="1649573743199" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/SNL_Compiler$te.coverage" NAME="predict Coverage Results" MODIFIED="1649563273185" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/SNL_Compiler$token.coverage" NAME="token Coverage Results" MODIFIED="1649573739156" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/SNL_Compiler$test.coverage" NAME="test Coverage Results" MODIFIED="1649589683472" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/SNL_Compiler$test.coverage" NAME="test Coverage Results" MODIFIED="1650372542745" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>

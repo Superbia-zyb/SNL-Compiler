@@ -1,7 +1,7 @@
 program sd
 type i=integer;
 sarray=array [0..5] of integer;
-
+ssarray=array [0..5] of char;
 
 w1=record
         integer x;
@@ -11,23 +11,26 @@ w1=record
         char cy;
         array[0..5] of char cc;
         end;
-var i xx;
-sarray yy;
+var i x;
+sarray y;
 integer ss;
-char cc;
 array[0..4] of integer a;
-procedure sd(integer a; integer b);
+sarray b;
+ssarray zz;
+procedure sd(sarray a; char c);
 begin
-    write(a)
+    write(a[10])
 end
 begin
     ss:=0;
     while ss=6 do
-        y[ss]:=ss;
+        y[ss]:=b[w1.cx];
+        y[ss]:=b[zz[10]];
         x:=y[ss];
-        sd(32);
-        ss:=ss+1
+        a(b,'c');
+        ss:=sd+1
     endwh;
-    cc:='a'
+    w1.cc:='c';
+    w1.cc[1]:='c'
 end.
 

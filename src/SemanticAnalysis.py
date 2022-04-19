@@ -1,4 +1,6 @@
+import copy
 import json
+import re
 import sys  # 导入sys模块
 
 sys.setrecursionlimit(3000)
@@ -37,7 +39,7 @@ class Node:
             self.kind = vals[0]
             vals = vals[1:]
             if self.kind == "IdK":
-                self.kind = vals[0]
+                self.realKind = vals[0]
                 vals = vals[1:]
             # ArrayK, CharK, IntegerK, RecordK, IdK
             if self.kind == 'ArrayK':
@@ -64,12 +66,10 @@ class Node:
         for x in vals:
             if x != "":
                 self.idnum += 1
-                x = x.replace('\'', "", -1)
                 self.name.append(x)
         # self.type_name = type_name
 
 def error(*param):
-    flag = True
     s = ""
     for x in param:
         if type(x) == "str":
@@ -135,7 +135,6 @@ class Kind:
 
 class SymbolTable:
     def __init__(self, node, name, level, off, body=None, params=None, ifType=False):
-        "if node.kind"
         self.kind = node.kind
         self.name = name
         self.level = level
@@ -170,12 +169,24 @@ class SymbolTable:
                 s += str(x.__dict__)
         return f"kind:{self.kind}, name:{self.name}, level:{self.level}, typePtr:{self.typePtr.__dict__}, body:{s}, params:{self.params}, ifType:{self.ifType}"
 
+def CallSymbolTable(node, name, level, off, body=None, params=None, ifType=False):
+    if node.kind == 'IdK':
+        v = find(node.realKind, type=True)
+        if v is None:
+            error(node.rawline, f"unknown kind: {node.realKind}")
+            return None
+        tab = copy.deepcopy(v)
+        tab.ifType = False
+        tab.name = name
+        return tab
+    return SymbolTable(node, name, level, off, body=body, params=params, ifType=ifType)
+
 all_scope = [[]]
 scope = [[]]
 sl = 0
 off = 0
 
-def find(name, exist=None):
+def find(name, exist=None, type=False):
     # print("----")
     # for i in range(sl, -1, -1):
     #     for x in reversed(scope[i]):
@@ -187,7 +198,7 @@ def find(name, exist=None):
         low = -1
     for i in range(sl, low, -1):
         for x in reversed(scope[i]):
-            if name == x.name:
+            if name == x.name and x.ifType == type:
                 return x
     return None
 
@@ -202,15 +213,22 @@ def ck(kind, vkind):
 
 def getFieldKind(field):
     if field.kind in ("IntegerK", "CharK"):
-        return field["kind"]
+        return field.kind
     if field.kind == "ArrayK":
         return field.arrayKind
+    return None
+
+def crateName(node):
+    if node.attr["varkind"] == "FieldMembV":
+        return node.name[0] + '.' + node.child[0].name[0]
+    else:
+        return node.name[0]
 
 def getKind(node):
     if node.kind == "ConstK":
         if str.isdigit(node.name[0]):
             return "IntegerK"
-        if str.isalpha(node.name[0]):
+        if re.match(r"\'[a-zA-Z]\'", node.name[0]):
             return "CharK"
 
     if node.kind == "IdK":
@@ -231,7 +249,8 @@ def getKind(node):
                 l = int(v.typePtr.arrayAttr["indexTy"]["low"])
                 r = int(v.typePtr.arrayAttr["indexTy"]["up"])
                 if str.isdigit(id) is False:
-                    error(node.rawline, "array index illegal:", id)
+                    if getKind(x) != "IntegerK":
+                        error(node.rawline, f"array index illegal: {crateName(x)}, kind: {getKind(x)}")
                 elif int(id) < l or int(id) >= r:
                     error(node.rawline, "array index over range:", f"index:{id}, l:{l}, r:{r}")
             else:
@@ -244,6 +263,10 @@ def getKind(node):
                     nd = x
             if nd is None:
                 error(node.rawline, f"record {node.name[0]} not have the member {node.child[0].name[0]}")
+                return None
+            if ck(node.child[0].attr["varkind"], nd.kind) is False:
+                error(node.rawline, f"record {node.name[0]} member {node.child[0].name[0]} kind err: {nd.kind}, ",
+                      node.child[0].attr["varkind"])
                 return None
             for x in node.child:
                 for y in x.child:
@@ -283,7 +306,7 @@ def generate_table(node):
                 for y in node.child:
                     body.append(y)
 
-            tab = SymbolTable(node, x, level=sl, off=off, body=body)
+            tab = CallSymbolTable(node, x, level=sl, off=off, body=body)
             scope[sl].append(tab)
             all_scope[sl].append(tab)
             if node.kind == "RecordK":
@@ -301,7 +324,7 @@ def generate_table(node):
                     if y != " " and y != "":
                         params.append({"kind": x.kind, "name": y})
         node.kind = "ProcDecK"
-        tab = SymbolTable(node, node.name[0], level=sl, off=off, params=params)
+        tab = CallSymbolTable(node, node.name[0], level=sl, off=off, params=params)
         scope[sl].append(tab)
         all_scope[sl].append(tab)
 
@@ -318,10 +341,10 @@ def generate_table(node):
         if node.kind == "CallK":
             pro = find(node.name[0])
             if pro is None:
-                error(node.rawline, "ProcDeck find failed:", node.name[0])
+                error(node.rawline, "procDeck find failed:", node.name[0])
                 return
             elif pro.kind != "ProcDecK":
-                error(node.rawline, "ProcDeck kind incorrect:", node.name[0], pro.kind)
+                error(node.rawline, "procDeck kind error:", node.name[0], pro.kind)
                 return
             params = []
             for x in node.child:
@@ -374,7 +397,7 @@ def generate_table(node):
             if find(x.name[0], exist=True) is not None:
                 error(node.rawline, "type duplicated:", x.name[0])
                 continue
-            tab = SymbolTable(x, x.name[0], level=sl, off=off, ifType=True)
+            tab = CallSymbolTable(x, x.name[0], level=sl, off=off, ifType=True)
             scope[sl].append(tab)
             all_scope[sl].append(tab)
     else:
@@ -393,8 +416,8 @@ def semantic(tree_path):
     global root
     root = generate_node(tree_path)
     generate_table(root)
-    print("all_scope:")
-    table_print(all_scope)
+    # print("all_scope:")
+    # table_print(all_scope)
     if flag:
         return 0
     return -1
