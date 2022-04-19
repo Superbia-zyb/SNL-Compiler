@@ -2,19 +2,20 @@ import os
 
 from config.config import delimiters, reservedWords
 
-
 class Token:
     def __init__(self, line, lex, sem):
         self.line = line
         self.lex = lex
         self.sem = sem
 
-
 tokenList = []
 
+flag = 0
 
 def add(word, num, err=False):
+    global flag
     if err:
+        flag = -1
         tokenList.append(Token(num, "ERROR", word))
     elif str.isdigit(word):
         tokenList.append(Token(num, "INTC", int(word, 10)))
@@ -26,7 +27,6 @@ def add(word, num, err=False):
         tokenList.append((Token(num, "CHARC", word)))
     else:
         tokenList.append((Token(num, "ID", word)))
-
 
 def work(lines):
     commentflag = False
@@ -86,7 +86,6 @@ def work(lines):
     tokenList.append(Token(len(lines), "EOF", "EOF"))
     return tokenList
 
-
 def lex(pro_path, token_path):
     if not os.path.exists(pro_path):
         print(f"Open pro_path:{pro_path} failed")
@@ -104,5 +103,8 @@ def lex(pro_path, token_path):
                 file.write(f"{x.line} Reserved_word {x.lex}\n")
             else:
                 file.write(f"{x.line} {x.lex} {x.sem}\n")
-    print("Generate token success")
-    return 0
+    if flag == 0:
+        print("Generate token success")
+    else:
+        print("Generate token failed")
+    return flag

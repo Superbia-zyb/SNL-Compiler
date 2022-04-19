@@ -70,6 +70,8 @@ class Node:
         # self.type_name = type_name
 
 def error(*param):
+    global flag
+    flag = True
     s = ""
     for x in param:
         if type(x) == "str":
@@ -289,6 +291,11 @@ def operator(node, op):
             error(node.rawline, op, "operate failed:",
                   [(node.child[x].name[0], kindList[x]) for x in range(len(kindList))])
             return None
+        elif op in ("+", "-", "*", "/") and kindList[i] == "CharK":
+            error(node.rawline, op, "can't sub char",
+                  [(node.child[x].name[0], kindList[x]) for x in range(len(kindList))])
+            return None
+
     return kindList[0]
 
 def generate_table(node):
@@ -348,10 +355,15 @@ def generate_table(node):
                 return
             params = []
             for x in node.child:
-                kind = getKind(x)
-                if kind is None:
-                    error(x.rawline, "val find failed:", x.name[0])
-                    return
+                if x.kind == "OpK":
+                    kind = operator(x, x.name[0])
+                    if kind is None:
+                        return
+                else:
+                    kind = getKind(x)
+                    if kind is None:
+                        error(x.rawline, "val find failed:", x.name[0])
+                        return
                 params.append(kind)
             proParams = [x["kind"] for x in pro.params]
             # print(params, pro.params)
@@ -419,5 +431,5 @@ def semantic(tree_path):
     # print("all_scope:")
     # table_print(all_scope)
     if flag:
-        return 0
-    return -1
+        return -1
+    return 0
