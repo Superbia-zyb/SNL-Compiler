@@ -1,20 +1,31 @@
 program sd
 type i=integer;
-    sarray=array [0..5] of integer;
-var i x;
-    sarray y;
-    integer ss;
-    char cc;
-procedure sd(integer a);
+sarray=array [0..5] of integer;
+
+
+w1=record
+        integer x;
+        integer x;
+        integer y,z;
+        char cx;
+        char cy;
+        array[0..5] of char cc;
+        end;
+var i xx;
+sarray yy;
+integer ss;
+char cc;
+array[0..4] of integer a;
+procedure sd(integer a; integer b);
 begin
     write(a)
 end
 begin
     ss:=0;
-    while ss<6 do
+    while ss=6 do
         y[ss]:=ss;
         x:=y[ss];
-        sd(x);
+        sd(32);
         ss:=ss+1
     endwh;
     cc:='a'

@@ -3,10 +3,9 @@ from LexicalaAnalyzer import lex
 from Recursion import recurse
 from SemanticAnalysis import semantic
 
-pro_path = "../data/p1.txt"
+pro_path = "../data/p2.txt"
 token_path = "../data/token.txt"
 tree_path = "../data/syntax_tree.txt"
-
 
 def work(col=1):
     err = lex(pro_path, token_path)
@@ -20,6 +19,7 @@ def work(col=1):
         return
     print("Gramma alalysis success")
     err = semantic(tree_path)
+    if err != 0:
+        return
 
-
-work(0)
+work(1)

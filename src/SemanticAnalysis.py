@@ -1,13 +1,19 @@
 import json
+import sys  # 导入sys模块
 
+sys.setrecursionlimit(3000)
+flag = False
 
 class Node:
     def __init__(self, line, val, deep):
         self.child = []
         self.val = val
         self.deep = deep
-        self.line = line
+        self.line = str(line + 1)
         self.converse(val)
+
+    def __str__(self):
+        return str(self.__dict__)
 
     def print(self):
         print(str(json.dumps(self.__dict__)))
@@ -15,7 +21,7 @@ class Node:
     def converse(self, val):
         vals = val.split(" ")
         self.nodeKind = vals[0]
-        self.rawline = vals[1]
+        self.rawline = str(int(vals[1]) + 1)
         vals = vals[2:]
 
         self.kind = ""
@@ -30,6 +36,9 @@ class Node:
                 vals = vals[1:]
             self.kind = vals[0]
             vals = vals[1:]
+            if self.kind == "IdK":
+                self.kind = vals[0]
+                vals = vals[1:]
             # ArrayK, CharK, IntegerK, RecordK, IdK
             if self.kind == 'ArrayK':
                 self.attr['low'] = vals[0]
@@ -38,7 +47,8 @@ class Node:
                 vals = vals[3:]
         elif self.nodeKind == 'StmtK':
             # IfK WhileK AssignK ReadK WriteK CallK ReturnK
-            self.kind = vals[0]
+            if vals[0] != "" or vals[0] != " ":
+                self.kind = vals[0]
             vals = vals[1:]
         elif self.nodeKind == 'ExpK':
             # OpK ConstK IdK
@@ -54,9 +64,19 @@ class Node:
         for x in vals:
             if x != "":
                 self.idnum += 1
+                x = x.replace('\'', "", -1)
                 self.name.append(x)
         # self.type_name = type_name
 
+def error(*param):
+    flag = True
+    s = ""
+    for x in param:
+        if type(x) == "str":
+            s += x
+        else:
+            s = s + str(x) + " "
+    print(f"\033[31m{s}\033[0m")
 
 def dfs(node):
     for x in node.child:
@@ -64,23 +84,20 @@ def dfs(node):
     for x in node.child:
         dfs(x)
 
-
-level_list = {}
-
-
 def generate_node(tree_path):
+    level_list = {}
     with open(tree_path) as f:
         lines = f.readlines()
         for i in range(len(lines)):
             line = lines[i].replace("\n", "")
             bn = 0
-            i = 0
-            for i in range(len(line)):
-                if line[i] != " ":
+            j = 0
+            for j in range(len(line)):
+                if line[j] != " ":
                     break
                 else:
                     bn += 1
-            line = line[i:]
+            line = line[j:]
             level = int(bn / 3)
             node = Node(i, line, level)
             if level not in level_list:
@@ -88,13 +105,12 @@ def generate_node(tree_path):
                 if level > 0:
                     list = level_list[str(level - 1)]
                     list[len(list) - 1].child.append(node)
+    return level_list.get("0")[0]
     # dfs(level_list.get("0")[0])
-
 
 class DefaultKind:
     def __init__(self, kind):
         self.kind = kind
-
 
 class Kind:
     def __init__(self, node, body=None):
@@ -105,6 +121,7 @@ class Kind:
             elemTy = Kind(DefaultKind(node.attr["childType"])).__dict__
             self.arrayAttr = {"indexTy": indexTy, "elemTy": elemTy}
             self.size = elemTy["size"] * (int(node.attr["up"]) - int(node.attr["low"]))
+            self.arrayKind = elemTy["kind"]
         if node.kind == 'RecordK':
             for x in body:
                 self.size += x.size
@@ -113,51 +130,151 @@ class Kind:
         if node.kind == 'CharK':
             self.size = 1
 
+    def __str__(self):
+        return str(self.__dict__)
 
 class SymbolTable:
-    def __init__(self, node, name, level, off, body=None):
+    def __init__(self, node, name, level, off, body=None, params=None, ifType=False):
+        "if node.kind"
         self.kind = node.kind
         self.name = name
         self.level = level
         self.off = off
         self.body = None
-        if body != None:
+        self.params = None
+        self.ifType = ifType
+        if params is not None:
+            self.params = params
+
+        if body is not None:
             tmp = []
             for x in body:
-                tmp.append(Kind(x))
+                flag = False
+                for i in tmp:
+                    if x.name[0] == i.name:
+                        flag = True
+                if flag:
+                    error(node.rawline, f"record {name} field member {x.name[0]} duplicated")
+                    continue
+                y = Kind(x)
+                y.name = x.name[0]
+                tmp.append(y)
+
             self.body = tmp
         self.typePtr = Kind(node, self.body)
 
     def __str__(self):
         s = ""
-        if self.body != None:
+        if self.body is not None:
             for x in self.body:
                 s += str(x.__dict__)
-        return f"kind:{self.kind}, name:{self.name}, level:{self.level}, typePtr:{self.typePtr.__dict__}, body:{s}"
-
+        return f"kind:{self.kind}, name:{self.name}, level:{self.level}, typePtr:{self.typePtr.__dict__}, body:{s}, params:{self.params}, ifType:{self.ifType}"
 
 all_scope = [[]]
 scope = [[]]
 sl = 0
 off = 0
 
-
-def check_varName(name):
-    for i in range(sl, -1, -1):
-        for x in reversed(scope[sl]):
+def find(name, exist=None):
+    # print("----")
+    # for i in range(sl, -1, -1):
+    #     for x in reversed(scope[i]):
+    #         print(x)
+    # print("find name:", name)
+    if exist is not None:
+        low = sl - 1
+    else:
+        low = -1
+    for i in range(sl, low, -1):
+        for x in reversed(scope[i]):
             if name == x.name:
-                return 1
-            print(x.name)
-    return 0
+                return x
+    return None
 
+def ck(kind, vkind):
+    if kind == "IdV" and vkind in ("IntegerK", "CharK"):
+        return True
+    if kind == "ArrayMembV" and vkind == "ArrayK":
+        return True
+    if kind == "FieldMembV" and vkind == "RecordK":
+        return True
+    return False
+
+def getFieldKind(field):
+    if field.kind in ("IntegerK", "CharK"):
+        return field["kind"]
+    if field.kind == "ArrayK":
+        return field.arrayKind
+
+def getKind(node):
+    if node.kind == "ConstK":
+        if str.isdigit(node.name[0]):
+            return "IntegerK"
+        if str.isalpha(node.name[0]):
+            return "CharK"
+
+    if node.kind == "IdK":
+        kind = node.attr["varkind"]
+        v = find(node.name[0])
+        if v is None:
+            error(node.rawline, "val find failed:", node.name[0])
+            return None
+        if ck(kind, v.kind) is False:
+            error(node.rawline, "val kind errored:", node.name[0], kind, v.kind)
+            return None
+        if kind == "IdV":
+            return v.kind
+        if kind == "ArrayMembV":
+            if len(node.child) == 1:
+                x = node.child[0]
+                id = x.name[0]
+                l = int(v.typePtr.arrayAttr["indexTy"]["low"])
+                r = int(v.typePtr.arrayAttr["indexTy"]["up"])
+                if str.isdigit(id) is False:
+                    error(node.rawline, "array index illegal:", id)
+                elif int(id) < l or int(id) >= r:
+                    error(node.rawline, "array index over range:", f"index:{id}, l:{l}, r:{r}")
+            else:
+                error(node.rawline, "array cant operate directed:", node.name[0])
+            return v.typePtr.arrayKind
+        if kind == "FieldMembV":
+            nd = None
+            for x in v.body:
+                if x.name == node.child[0].name[0]:
+                    nd = x
+            if nd is None:
+                error(node.rawline, f"record {node.name[0]} not have the member {node.child[0].name[0]}")
+                return None
+            for x in node.child:
+                for y in x.child:
+                    generate_table(y)
+            return getFieldKind(nd)
+
+def operator(node, op):
+    kindList = []
+    for x in node.child:
+        kindList.append(generate_table(x))
+    if len(kindList) == 0:
+        error(node.rawline, "operate not have child")
+        return None
+    for i in range(len(kindList)):
+        if kindList[i] is None:
+            return None
+        elif kindList[i] not in ("IntegerK", "CharK"):
+            error(node.rawline, op, "illegal operate kind:", kindList[i])
+        elif kindList[i] != kindList[0]:
+            error(node.rawline, op, "operate failed:",
+                  [(node.child[x].name[0], kindList[x]) for x in range(len(kindList))])
+            return None
+    return kindList[0]
 
 def generate_table(node):
     global sl, scope
+    # ProK, PheadK, TypeK, VarK, ProDecK, StmLK, DecK, Stmtk, ExpK
     if node.nodeKind == "DecK":
         for x in node.name:
-            err = check_varName(x)
-            if err:
-                print("val repeated")
+            if find(x, exist=True) is not None:
+                error(node.rawline, "val duplicated:", x)
                 continue
 
             body = None
@@ -165,32 +282,119 @@ def generate_table(node):
                 body = []
                 for y in node.child:
                     body.append(y)
+
             tab = SymbolTable(node, x, level=sl, off=off, body=body)
             scope[sl].append(tab)
             all_scope[sl].append(tab)
-            print(str(tab))
             if node.kind == "RecordK":
                 return
-    if node.nodeKind == "ProcDecK" and node.idnum > 0:
+            for x in node.child:
+                generate_table(x)
+    elif node.nodeKind == "ProcDecK" and node.idnum > 0:
+        if find(node.name[0], exist=True) is not None:
+            error(node.rawline, "val duplicated:", node.name[0])
+            return
+        params = []
+        for x in node.child:
+            if x.nodeKind == "DecK":
+                for y in x.name:
+                    if y != " " and y != "":
+                        params.append({"kind": x.kind, "name": y})
+        node.kind = "ProcDecK"
+        tab = SymbolTable(node, node.name[0], level=sl, off=off, params=params)
+        scope[sl].append(tab)
+        all_scope[sl].append(tab)
+
         sl += 1
         scope.append([])
         all_scope.append([])
-    for x in node.child:
-        generate_table(x)
-    if node.nodeKind == "ProcDecK" and node.idnum > 0:
+        for x in node.child:
+            generate_table(x)
         sl -= 1
         scope = scope[:-1]
-    return
+    elif node.nodeKind == "StmtK":
+        # IfK WhileK AssignK ReadK WriteK CallK ReturnK
+        # print("kind:", node.kind)
+        if node.kind == "CallK":
+            pro = find(node.name[0])
+            if pro is None:
+                error(node.rawline, "ProcDeck find failed:", node.name[0])
+                return
+            elif pro.kind != "ProcDecK":
+                error(node.rawline, "ProcDeck kind incorrect:", node.name[0], pro.kind)
+                return
+            params = []
+            for x in node.child:
+                kind = getKind(x)
+                if kind is None:
+                    error(x.rawline, "val find failed:", x.name[0])
+                    return
+                params.append(kind)
+            proParams = [x["kind"] for x in pro.params]
+            # print(params, pro.params)
+            if len(params) != len(proParams):
+                error(node.rawline, "call failed:", params, proParams)
+                return
+            for i in range(len(params)):
+                if params[i] != proParams[i]:
+                    error(node.rawline, "call failed:", params, proParams)
+                    return
+            return
+        if node.kind == "IfK":
+            for x in node.child:
+                generate_table(x)
+        if node.kind == "AssignK":
+            if node.child[0].kind != "IdK":
+                error(node.rawline, "AssignK left kind illegal", node.name[0])
+            return operator(node, "=")
+        if node.kind == "ReadK":
+            if find(node.name[0]) is None:
+                error(node.rawline, "val find failed:", node.name[0])
+            return
+        if node.kind == "WriteK":
+            return operator(node, "write")
+        if node.kind == "ReturnK":
+            return
+        if node.kind == "WhileK":
+            for x in node.child:
+                generate_table(x)
+            return
+    elif node.nodeKind == "ExpK":
+        # OpK ConstK IdK
+        if node.kind == "OpK":
+            return operator(node, node.name[0])
 
+        if node.kind in ("IdK", "ConstK"):
+            return getKind(node)
+    elif node.nodeKind == "TypeK":
+        for x in node.child:
+            if x.kind == "RecordK":
+                generate_table(x)
+                continue
+            if find(x.name[0], exist=True) is not None:
+                error(node.rawline, "type duplicated:", x.name[0])
+                continue
+            tab = SymbolTable(x, x.name[0], level=sl, off=off, ifType=True)
+            scope[sl].append(tab)
+            all_scope[sl].append(tab)
+    else:
+        for x in node.child:
+            generate_table(x)
+    return
 
 def table_print(table):
     for i in range(len(table)):
         for x in table[i]:
             print(f"i:{i}, ", str(x))
 
+root = None
 
 def semantic(tree_path):
-    generate_node(tree_path)
-    generate_table(level_list.get("0")[0])
+    global root
+    root = generate_node(tree_path)
+    generate_table(root)
     print("all_scope:")
     table_print(all_scope)
+    if flag:
+        return 0
+    return -1

@@ -19,7 +19,7 @@ def judgeType(op):
     a = ['+', '-', '*', '/', '=', '<']
     if op in a:
         b = 'OpK'
-    elif op.isdigit():
+    elif op.isdigit() or ('\'' in op and len(op) == 3):
         b = 'ConstK'
     else:
         b = 'IdK'
