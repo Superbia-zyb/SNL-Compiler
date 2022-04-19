@@ -123,7 +123,7 @@ class LL1:
                 print('有语法错误，且尝试修复失败，语法树生成失败，不可继续运行')
             for i in range(len(self.errImag)):
                 print(self.errImag[i])
-        return self.runJudge, self.errImag
+        return not self.runJudge, self.errImag
 
 # ll1 = LL1("../data/grammar.txt", "../data/token.txt")
 # ll1.run()
