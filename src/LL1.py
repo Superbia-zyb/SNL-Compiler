@@ -1,7 +1,7 @@
-from config.LL1_config import Stack, Tree
-from GrammarProcess import predict1
-from predict import getPredict
 from GrammarError import dealError
+from GrammarProcess import predict1
+from config.LL1_config import Stack, Tree
+from predict import getPredict
 
 class LL1:
     def __init__(self, grammarPath, tokenPath, TreePath):
@@ -86,7 +86,7 @@ class LL1:
                     # syntax_tree.getInfNode()
                 else:
                     errJudge, ErrImag = self.dealError.run(self.SignStack, self.TokenStack)
-                    Err = {'line':0, 'message':' '}
+                    Err = {'line': 0, 'message': ' '}
                     Err['line'] = int(toke[0])
                     Err['message'] = ErrImag
                     self.errImag.append(Err)
@@ -123,7 +123,9 @@ class LL1:
                 print('有语法错误，且尝试修复失败，语法树生成失败，不可继续运行')
             for i in range(len(self.errImag)):
                 print(self.errImag[i])
-        return not self.runJudge, self.errImag
+        if len(self.errImag) > 0:
+            return -1, self.errImag
+        return 0, self.errImag
 
 # ll1 = LL1("../data/grammar.txt", "../data/token.txt")
 # ll1.run()
