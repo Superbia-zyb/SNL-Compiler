@@ -3,7 +3,7 @@ from LexicalaAnalyzer import lex
 from Recursion import recurse
 from SemanticAnalysis import semantic
 
-pro_path = "../data/p2.txt"
+pro_path = "../data/p1.txt"
 token_path = "../data/token.txt"
 tree_path = "../data/syntax_tree.txt"
 gram_path = "../data/grammar.txt"

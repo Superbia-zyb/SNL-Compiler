@@ -221,8 +221,8 @@ def getFieldKind(field):
         return field.arrayKind
     return None
 
-def crateName(node):
-    if node.attr["varkind"] == "FieldMembV":
+def createName(node):
+    if "varkind" in node.attr and node.attr["varkind"] == "FieldMembV":
         return node.name[0] + '.' + node.child[0].name[0]
     else:
         return node.name[0]
@@ -253,7 +253,7 @@ def getKind(node):
                 r = int(v.typePtr.arrayAttr["indexTy"]["up"])
                 if str.isdigit(id) is False:
                     if getKind(x) != "IntegerK":
-                        error(node.rawline, f"array index illegal: {crateName(x)}, kind: {getKind(x)}")
+                        error(node.rawline, f"array index illegal: {createName(x)}, kind: {getKind(x)}")
                 elif int(id) < l or int(id) >= r:
                     error(node.rawline, "array index over range:", f"index:{id}, l:{l}, r:{r}")
             else:
