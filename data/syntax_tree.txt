@@ -1,55 +1,70 @@
-ProK 22
-   PheadK 1 pp
-   VarK 2
-      DecK 2 IntegerK i n m j k 
-      DecK 3 ArrayK 1 10 IntegerK a 
-   StmLK 5
-      StmtK 6 AssignK 
-         ExpK 6 IdK IdV i
-         ExpK 6 ConstK 0
-      StmtK 7 AssignK 
-         ExpK 7 IdK IdV j
-         ExpK 7 ConstK 0
-      StmtK 8 AssignK 
-         ExpK 8 IdK IdV k
-         ExpK 8 ConstK 0
-      StmtK 9 WhileK 
-         ExpK 9 OpK <
-            ExpK 9 IdK IdV k
-            ExpK 9 ConstK 3
-         StmtK 10 WhileK 
-            ExpK 10 OpK <
-               ExpK 10 IdK IdV i
-               ExpK 10 ConstK 5
-            StmtK 11 AssignK 
-               ExpK 11 IdK IdV m
-               ExpK 11 OpK *
-                  ExpK 11 ConstK 10
-                  ExpK 11 OpK +
-                     ExpK 11 ConstK 5
-                     ExpK 11 ConstK 'c'
-            StmtK 12 AssignK 
-               ExpK 12 IdK IdV m
-               ExpK 12 OpK +
-                  ExpK 12 IdK IdV k
-                  ExpK 12 ConstK 5
-            StmtK 13 AssignK 
-               ExpK 13 IdK IdV n
-               ExpK 13 IdK IdV i
-            StmtK 15 WriteK 
-               ExpK 15 IdK IdV n
-            StmtK 16 AssignK 
-               ExpK 16 IdK IdV i
-               ExpK 16 OpK +
-                  ExpK 16 IdK IdV i
-                  ExpK 16 ConstK 1
-         StmtK 18 AssignK 
-            ExpK 18 IdK IdV i
-            ExpK 18 ConstK 0
-         StmtK 19 AssignK 
-            ExpK 19 IdK IdV k
-            ExpK 19 OpK +
-               ExpK 19 IdK IdV k
-               ExpK 19 ConstK 1
-      StmtK 21 WriteK 
-         ExpK 21 IdK IdV m
+ProK 0
+   PheadK 0 sd
+   TypeK 1
+      DecK 1 IntegerK i
+      DecK 2 ArrayK 0 5 IntegerK sarray
+      DecK 3 ArrayK 0 5 CharK ssarray
+      DecK 5 RecordK w1
+         DecK 6 IntegerK x
+         DecK 7 IntegerK x
+         DecK 8 IntegerK y z
+         DecK 9 CharK cx
+         DecK 10 CharK cy
+         DecK 11 ArrayK 0 5 CharK cc
+   VarK 13
+      DecK 13 IdK i x
+      DecK 14 IdK sarray y
+      DecK 15 IntegerK ss
+      DecK 16 ArrayK 0 4 IntegerK a
+      DecK 17 IdK sarray b
+      DecK 18 IdK ssarray zz
+   ProcDecK 19
+      ProcDecK 19 sd
+         DecK 19 valparamType IdK sarray a
+         DecK 19 valparamType CharK c
+         TypeK 0
+         StmLK 20
+            StmtK 21 WriteK
+               ExpK 21 IdK ArrayMembV a
+                  ExpK 21 ConstK 10
+   StmLK 23
+      StmtK 24 AssignK
+         ExpK 24 IdK IdV ss
+         ExpK 24 ConstK 0
+      StmtK 25 WhileK
+         ExpK 25 OpK =
+            ExpK 25 IdK IdV ss
+            ExpK 25 ConstK 6
+         StmtK 26 AssignK
+            ExpK 26 IdK ArrayMembV y
+               ExpK 26 IdK IdV ss
+            ExpK 26 IdK ArrayMembV b
+               ExpK 26 IdK FieldMembV w1
+                  ExpK 26 IdK IdV cx
+         StmtK 27 AssignK
+            ExpK 27 IdK ArrayMembV y
+               ExpK 27 IdK IdV ss
+            ExpK 27 IdK ArrayMembV b
+               ExpK 27 IdK ArrayMembV zz
+                  ExpK 27 ConstK 10
+         StmtK 28 AssignK
+            ExpK 28 IdK IdV x
+            ExpK 28 IdK ArrayMembV y
+               ExpK 28 IdK IdV ss
+         StmtK 29 CallK a
+            ExpK 29 IdK IdV b
+            ExpK 29 ConstK 'c'
+         StmtK 30 AssignK
+            ExpK 30 IdK IdV ss
+            ExpK 30 OpK +
+               ExpK 30 IdK IdV sd
+               ExpK 30 ConstK 1
+      StmtK 32 AssignK
+         ExpK 32 IdK FieldMembV w1
+            ExpK 32 IdK IdV cc
+         ExpK 32 ConstK 'c'
+      StmtK 33 AssignK
+         ExpK 33 IdK FieldMembV w1
+            ExpK 33 IdK ArrayMembV cc
+               ExpK 33 ConstK 1
+         ExpK 33 ConstK 'c'

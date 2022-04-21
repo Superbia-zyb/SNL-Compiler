@@ -2,6 +2,7 @@ import copy
 import json
 import re
 import sys  # 导入sys模块
+from visualTree import visTree
 
 sys.setrecursionlimit(3000)
 flag = False
@@ -427,6 +428,7 @@ root = None
 def semantic(tree_path):
     global root
     root = generate_node(tree_path)
+    visTree(root)
     generate_table(root)
     # print("all_scope:")
     # table_print(all_scope)
