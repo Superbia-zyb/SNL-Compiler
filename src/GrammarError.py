@@ -97,15 +97,27 @@ class dealError:
             else:  # 不相等出错
                 return False
 
-    def run(self, SignStack, TokenStack):
+    def run(self, SignStack, TokenStack, signRpush, signRpop, tokenRpush):
         ErrImag = ' '
         judge = False
-        for i in range(3):
+        self.signRpush = signRpush
+        self.signRpop = signRpop
+        self.tokenRpush = tokenRpush
+        for i in range(4):
             judge, ErrImag = self.__repair(i + 1, SignStack, TokenStack)
             if judge:
                 break
         if not judge:
-            ErrImag = 'Other unclear wrong'
+            t1 = copy.deepcopy(TokenStack)
+            ErrImag = '语句存在未知语法错误'
+            for j in range(3):
+                t = t1.pop()
+                if t[2] == 'DO':
+                    ErrImag = 'while循环判断语句存在问题'
+                    break
+                elif t[2] == 'THEN':
+                    ErrImag = 'if分支判断语句存在问题'
+                    break
         return judge, ErrImag
 
     def __repair(self, num, SignStack, TokenStack):
@@ -125,6 +137,8 @@ class dealError:
             judge, ErrImag = self.__error2(SignStack, TokenStack)
         elif num == 3:
             judge, ErrImag = self.__error3(SignStack, TokenStack)
+        elif num == 4:
+            judge, ErrImag = self.__error4(SignStack, TokenStack)
         return judge, ErrImag
 
     def __error1(self, SignStack, TokenStack):
@@ -136,7 +150,7 @@ class dealError:
             T1.push(['0', 'Reserved_word', ReWord])
             if self.__judgeRepair2(S1, T1):
                 TokenStack.push(['0', 'Reserved_word', ReWord])
-                message = '缺少' + ReWord
+                message = '缺少保留字' + ReWord
                 return True, message
         return False, ' '
 
@@ -157,6 +171,43 @@ class dealError:
             T1.push(['0', 'Other', Deli])
             if self.__judgeRepair2(S1, T1):
                 TokenStack.push(['0', 'Other', Deli])
-                message = '缺少' + Deli
+                message = '缺少符号' + Deli
                 return True, message
+        return False, ' '
+
+    def __error4(self, SignStack, TokenStack):
+        # 回溯查错
+        signRpush = copy.deepcopy(self.signRpush)
+        signRpop = copy.deepcopy(self.signRpop)
+        tokenRpush = copy.deepcopy(self.tokenRpush)
+        SB = copy.deepcopy(SignStack)
+        TB = copy.deepcopy(TokenStack)
+        if signRpush.size() < 10:
+            x = signRpush.size()
+        else:
+            x = 10
+        while x > 0:
+            for j in range(signRpop.pop()):
+                SB.pop()
+            SB.push(signRpush.pop())
+            t = tokenRpush.pop()
+            if t[1] != 'back':
+                TB.push(t)
+            for i in range(len(self.reservedWords)):
+                ReWord = self.reservedWords[i]
+                S1 = copy.deepcopy(SB)
+                T1 = copy.deepcopy(TB)
+                T1.push(['0', 'Reserved_word', ReWord])
+                if self.__judgeRepair2(S1, T1):
+                    for m in range(10-x+1):
+                        for j in range(self.signRpop.pop()):
+                            SignStack.pop()
+                        SignStack.push(self.signRpush.pop())
+                        t = self.tokenRpush.pop()
+                        if t[1] != 'back':
+                            TokenStack.push(t)
+                    TokenStack.push(['0', 'Reserved_word', ReWord])
+                    message = '缺少保留字' + ReWord
+                    return True, message
+            x -= 1
         return False, ' '

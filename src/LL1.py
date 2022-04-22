@@ -31,6 +31,9 @@ class LL1:
         self.dealError = dealError(self.left, self.table_row, self.table_col, self.grammar)
         self.errImag = []
         self.runJudge = False
+        self.signRpush = Stack()
+        self.signRpop = Stack()
+        self.tokenRpush = Stack()
 
     # 分析表建立函数
     def __CreateAnaTable(self, predict, grammar, only_right):
@@ -74,9 +77,11 @@ class LL1:
                 row = self.table_row[sign]
                 judge = self.table_col[row][token]
                 if judge != -1:
-                    self.SignStack.pop()
+                    self.signRpush.push(self.SignStack.pop())
+                    self.tokenRpush.push(['','back',''])
                     rig = self.grammar[judge]['right']
                     length = len(rig)
+                    self.signRpop.push(length)
                     for i in range(length):
                         if rig[length - 1 - i] != 'NULL':
                             self.SignStack.push(rig[length - 1 - i])
@@ -85,7 +90,7 @@ class LL1:
                     # print(judge + 1)
                     # syntax_tree.getInfNode()
                 else:
-                    errJudge, ErrImag = self.dealError.run(self.SignStack, self.TokenStack)
+                    errJudge, ErrImag = self.dealError.run(self.SignStack, self.TokenStack, self.signRpush, self.signRpop, self.tokenRpush)
                     Err = {'line': 0, 'message': ' '}
                     Err['line'] = int(toke[0])
                     Err['message'] = ErrImag
@@ -94,10 +99,11 @@ class LL1:
                         break
             else:
                 if sign == token:  # 相等则进行匹配
-                    self.SignStack.pop()
-                    self.TokenStack.pop()
+                    self.signRpush.push(self.SignStack.pop())
+                    self.signRpop.push(0)
+                    self.tokenRpush.push(self.TokenStack.pop())
                 else:  # 不相等出错
-                    errJudge, ErrImag = self.dealError.run(self.SignStack, self.TokenStack)
+                    errJudge, ErrImag = self.dealError.run(self.SignStack, self.TokenStack, self.signRpush, self.signRpop, self.tokenRpush)
                     Err = {'line': 0, 'message': ' '}
                     Err['line'] = int(toke[0])
                     Err['message'] = ErrImag
