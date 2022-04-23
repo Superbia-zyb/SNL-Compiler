@@ -1,7 +1,8 @@
-import sys
+import sys, os
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QWidget, QPushButton, QHBoxLayout, QVBoxLayout, \
-    QApplication, QLineEdit, QInputDialog, QTextEdit, QTextBrowser, QLabel, QComboBox
+    QApplication, QLineEdit, QInputDialog, QTextEdit, QTextBrowser, QLabel, QComboBox, QScrollBar, QFileDialog
 from PyQt5 import QtCore, QtGui
+from PyQt5.QtCore import Qt
 from main import work
 
 class Stream(QtCore.QObject):
@@ -16,7 +17,6 @@ class Window(QWidget):
         super(Window, self).__init__()
 
         sys.stdout = Stream(newText=self.console)
-
         self.setGeometry(200, 200, 1300, 800)
         self.setWindowTitle("SNL-Complier")
 
@@ -38,7 +38,6 @@ class Window(QWidget):
 
         self.Console = QTextBrowser(self)
         self.Console.setFont(font)
-
         self.ConsoleLabel = QLabel('Console', self)
         self.ProgramLabel = QLabel('Program', self)
         self.TokenListLabel = QLabel('Token List', self)
@@ -51,15 +50,18 @@ class Window(QWidget):
         self.SemanticTablesLabel.setFont(label_font)
 
         self.ChooseButton = QComboBox()
-        self.ChooseButton.addItem('递归下降分析法')
-        self.ChooseButton.addItem('LL1分析法')
+        self.ChooseButton.addItem('递归下降分析')
+        self.ChooseButton.addItem('LL1分析')
 
         self.FormatButton = QPushButton("Format")
         self.ResetButton = QPushButton("Reset")
         self.StartButton = QPushButton("Start")
+        self.OpenButton = QPushButton("Open File")
+
         self.FormatButton.clicked.connect(self.format)
         self.ResetButton.clicked.connect(self.reset)
         self.StartButton.clicked.connect(self.start)
+        self.OpenButton.clicked.connect(self.open)
 
         self.ProgramLayout = QVBoxLayout()
         self.TokenListLayout = QVBoxLayout()
@@ -72,6 +74,15 @@ class Window(QWidget):
         self.all_v_layout = QVBoxLayout()
         self.layout_init()
 
+    def open(self):
+        filename = QFileDialog.getOpenFileName(self, '选择文件')
+        print("choose file: \n", filename[0])
+        if os.path.exists(filename[0]) is False:
+            return
+        with open(filename[0], "r") as f:
+            txt = f.read()
+            self.Program.setText(txt)
+
     def format(self):
         self.Program.setText("")
 
@@ -83,7 +94,7 @@ class Window(QWidget):
         self.SyntaxTree.setText("")
 
     def start(self):
-        self.Console.setText("")
+        print("---------analysis---------")
         self.SemanticTables.setText("")
         self.TokenList.setText("")
         self.SyntaxTree.setText("")
@@ -150,6 +161,8 @@ class Window(QWidget):
         self.OptionLayout.addWidget(self.ResetButton)
         self.OptionLayout.addStretch(0.5)
         self.OptionLayout.addWidget(self.StartButton)
+        self.OptionLayout.addStretch(0.5)
+        self.OptionLayout.addWidget(self.OpenButton)
 
         self.all_h_layout.addLayout(self.TokenListLayout)
         self.all_h_layout.addLayout(self.SyntaxTreeLayout)
