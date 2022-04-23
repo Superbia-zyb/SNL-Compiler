@@ -1,2 +1,13 @@
-ProK 0
-   TypeK 0
+ProK 15
+   PheadK 0 sd
+   TypeK 1
+      DecK 1 IntegerK i 
+      DecK 2 ArrayK 0 5 IntegerK sarray 
+      DecK 3 ArrayK 0 5 CharK ssarray 
+      DecK 5 RecordK w1 
+         DecK 6 IntegerK x 
+         DecK 7 IntegerK x 
+         DecK 8 IntegerK y z 
+         DecK 9 CharK cx 
+         DecK 10 CharK cy 
+         DecK 11 ArrayK 0 5 CharK cc 

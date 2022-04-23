@@ -10,6 +10,6 @@ def recurse(token_path):
         for line in iter(process.stdout.readline, b''):
             print(line.decode().strip())
     exitcode = process.wait()
-    if err != 0:
+    if exitcode != 0:
         return -1
     return 0

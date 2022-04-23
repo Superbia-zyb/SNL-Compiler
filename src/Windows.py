@@ -2,8 +2,9 @@ import sys, os
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QWidget, QPushButton, QHBoxLayout, QVBoxLayout, \
     QApplication, QLineEdit, QInputDialog, QTextEdit, QTextBrowser, QLabel, QComboBox, QScrollBar, QFileDialog
 from PyQt5 import QtCore, QtGui
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QRect
 from main import work
+from PyQt5.QtGui import QTextCursor, QColor, QTextFormat
 
 class Stream(QtCore.QObject):
     """Redirects console output to text widget."""
@@ -75,6 +76,9 @@ class Window(QWidget):
         self.all_h_layout = QHBoxLayout()
         self.all_v_layout = QVBoxLayout()
         self.layout_init()
+        self.currentLineNumber = None
+        self.highligtCurrentLine()
+        self.Program.cursorPositionChanged.connect(self.highligtCurrentLine)
 
     def open(self):
         filename = QFileDialog.getOpenFileName(self, '选择文件')
@@ -144,10 +148,25 @@ class Window(QWidget):
         self.SemanticTables.setText(semanticTables)
 
     def console(self, text):
-        text = f"<font color='red'><red>{text}/font>"
+        # text = "<font color=\"#FF0000\">" + text + "</font>"
         t = self.Console.toPlainText()
         self.Console.setText(t + text)
+        # self.Console.moveCursor(QTextCursor.End)
+        # self.Console.append(text)
         self.Console.verticalScrollBar().setValue(self.Console.verticalScrollBar().maximum())
+
+    def highligtCurrentLine(self):
+        newCurrentLineNumber = self.Program.textCursor().blockNumber()
+        if newCurrentLineNumber != self.currentLineNumber:
+            lineColor = QColor(Qt.yellow).lighter(160)
+            self.currentLineNumber = newCurrentLineNumber
+            hi_selection = QTextEdit.ExtraSelection()
+            hi_selection.format.setBackground(lineColor)
+            hi_selection.format.setProperty(QTextFormat.FullWidthSelection, True)
+            hi_selection.cursor = self.Program.textCursor()
+            hi_selection.cursor.clearSelection()
+            self.Program.setExtraSelections([hi_selection])
+
 
     def layout_init(self):
         self.ConsoleLayout.addWidget(self.ConsoleLabel)
