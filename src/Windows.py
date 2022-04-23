@@ -85,9 +85,6 @@ class Window(QWidget):
             txt = f.read()
             self.Program.setText(txt)
 
-    def openUrl(self):
-        QtGui.QDesktopServices.openUrl(QtCore.QUrl('http://www.hao123.com'))
-
     def format(self):
         self.Program.setText("")
 
@@ -132,6 +129,7 @@ class Window(QWidget):
 
         with open('../data/token.txt', 'r') as f:
             tokenList = f.read()
+
         f.close()
         self.TokenList.setText(tokenList)
 
@@ -146,6 +144,7 @@ class Window(QWidget):
         self.SemanticTables.setText(semanticTables)
 
     def console(self, text):
+        text = f"<font color='red'><red>{text}/font>"
         t = self.Console.toPlainText()
         self.Console.setText(t + text)
         self.Console.verticalScrollBar().setValue(self.Console.verticalScrollBar().maximum())
