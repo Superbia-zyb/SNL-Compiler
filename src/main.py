@@ -11,7 +11,7 @@ gram_path = "../data/grammar.txt"
 def work(col=1):
     err = lex(pro_path, token_path)
     if err != 0:
-        return
+        return False
     message = ""
     if col:
         # err = ll1(token_path, tree_path)
@@ -22,13 +22,14 @@ def work(col=1):
         err = recurse(token_path)
     if err != 0:
         print("Gramma analysis failed")
-        return
+        return False
     print("Gramma analysis success")
     err = semantic(tree_path)
     if err != 0:
         print("Semantic analysis failed")
-        return
-    print("Semantic analysis success")
+    else:
+        print("Semantic analysis success")
+    return True
 
 # work(1)
 #work(1)

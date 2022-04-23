@@ -1,8 +1,5 @@
-program sd
-type i=integer;
-sarray=array [0..5] of integer;
-ssarray=array [0..5] of char;
-
+program p
+type  t1 = integer;
 w1=record
         integer x;
         integer x;
@@ -11,26 +8,50 @@ w1=record
         char cy;
         array[0..5] of char cc;
         end;
-var i x;
-sarray y;
-integer ss;
+var integer v1,v2; char c1,c2;
 array[0..4] of integer a;
-sarray b;
-ssarray zz;
-procedure sd(sarray a; char c);
+procedure q(integer i, j);
+var integer a;
 begin
-    write(a[10])
+a:=i;
+   write(a)
 end
-begin
-    ss:=0;
-    while ss=6 do
-        y[ss]:=b[w1.cx];
-        y[ss]:=b[zz[10]];
-        x:=y[ss];
-        a(b,'c');
-        ss:=sd+1
-    endwh;
-    w1.cc:='c';
-    w1.cc[1]:='c'
-end.
 
+procedure p(integer i, j;char c1,c2);
+var integer b;
+    procedure p(char i, j);
+    var char a; char i;
+    begin
+    a:=i;
+       write(a)
+    end
+begin
+b:=i+j
+end
+
+begin
+read(v1);
+read(zyb);
+
+w1.c[4]:=1;
+w1.cc[a[11]]:=1;
+
+write(v1+'c');
+
+if v1<1
+then v1:=v1+10+11+'w'
+else v1:=v1-(10-11)
+fi;
+
+q(v1,10);
+a[10]:=1;
+a['c']:=1;
+a[2]:=a[3]+(4-6);
+{p(4,5,'w','b')}
+
+p(4,5);
+a(4,5);
+zyb(4,5);
+p:=p+1;
+a:=a+1
+end.

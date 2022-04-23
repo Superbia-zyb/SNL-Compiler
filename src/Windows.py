@@ -29,6 +29,7 @@ class Window(QWidget):
 
         self.TokenList = QTextBrowser(self)
         self.TokenList.setFont(font)
+        self.TokenList.setMaximumSize(300, 100000)
 
         self.SyntaxTree = QTextBrowser(self)
         self.SyntaxTree.setFont(font)
@@ -48,6 +49,7 @@ class Window(QWidget):
         self.TokenListLabel.setFont(label_font)
         self.SyntaxTreeLabel.setFont(label_font)
         self.SemanticTablesLabel.setFont(label_font)
+        self.SyntaxTreeLabel.setOpenExternalLinks(True)
 
         self.ChooseButton = QComboBox()
         self.ChooseButton.addItem('递归下降分析')
@@ -83,6 +85,9 @@ class Window(QWidget):
             txt = f.read()
             self.Program.setText(txt)
 
+    def openUrl(self):
+        QtGui.QDesktopServices.openUrl(QtCore.QUrl('http://www.hao123.com'))
+
     def format(self):
         self.Program.setText("")
 
@@ -98,6 +103,7 @@ class Window(QWidget):
         self.SemanticTables.setText("")
         self.TokenList.setText("")
         self.SyntaxTree.setText("")
+        self.SyntaxTreeLabel.setText('Syntax Tree')
 
         text = self.Program.toPlainText()
         with open('../data/program.txt', 'w') as f:
@@ -116,8 +122,11 @@ class Window(QWidget):
             f.write("")
         f.close()
 
-        work(self.ChooseButton.currentIndex())
+        result = work(self.ChooseButton.currentIndex())
+        if result:
+            self.SyntaxTreeLabel.setText('<a href="../data/语法树可视化图.html/">Syntax Tree</a>')
 
+        print(self.SyntaxTreeLabel.openExternalLinks())
         with open('../data/token.txt', 'r') as f:
             tokenList = f.read()
         f.close()

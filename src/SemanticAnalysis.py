@@ -446,7 +446,7 @@ def semantic(tree_path):
     with open('../data/semanticTables.txt', "w") as f:
         for i in range(len(all_scope)):
             for x in all_scope[i]:
-                f.write(f"i:{i}, " + str(x) + '\n')
+                f.write(f"i:{i}, " + str(x) + '\n\n')
     # print("all_scope:")
     # table_print(all_scope)
     if flag:
