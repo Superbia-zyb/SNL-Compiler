@@ -62,7 +62,7 @@ class LL1:
     def run(self):
         syntax_tree = Tree()
         PreNode = syntax_tree.root
-        while not self.SignStack.isEmpty():
+        while not self.SignStack.isEmpty() and self.TokenStack.peek()[2] != 'EOF':
             sign = self.SignStack.peek()
             toke = self.TokenStack.peek()
             if toke[1] == 'ID':
