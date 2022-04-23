@@ -136,6 +136,7 @@ class Window(QWidget):
     def console(self, text):
         t = self.Console.toPlainText()
         self.Console.setText(t + text)
+        self.Console.verticalScrollBar().setValue(self.Console.verticalScrollBar().maximum())
 
     def layout_init(self):
         self.ConsoleLayout.addWidget(self.ConsoleLabel)

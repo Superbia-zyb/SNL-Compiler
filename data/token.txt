@@ -26,6 +26,7 @@
 3 Other ]
 3 Reserved_word OF
 3 Reserved_word CHAR
+3 Other ;
 5 ID w1
 5 Other =
 5 Reserved_word RECORD

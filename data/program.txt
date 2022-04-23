@@ -1,7 +1,7 @@
 program sd
 type i=integer;
 sarray=array [0..5] of integer;
-ssarray=array [0..5] of char
+ssarray=array [0..5] of char;
 
 w1=record
         integer x;
