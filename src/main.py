@@ -3,7 +3,7 @@ from LexicalaAnalyzer import lex
 from Recursion import recurse
 from SemanticAnalysis import semantic
 
-pro_path = "../data/p1.txt"
+pro_path = "../data/program.txt"
 token_path = "../data/token.txt"
 tree_path = "../data/syntax_tree.txt"
 gram_path = "../data/grammar.txt"
@@ -30,4 +30,5 @@ def work(col=1):
         return
     print("Semantic analysis success")
 
-work(1)
+# work(1)
+#work(1)

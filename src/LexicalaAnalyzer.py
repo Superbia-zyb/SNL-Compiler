@@ -9,8 +9,12 @@ class Token:
         self.sem = sem
 
 tokenList = []
-
 flag = 0
+
+def init():
+    global tokenList, flag
+    tokenList = []
+    flag = 0
 
 def add(word, num, err=False):
     global flag
@@ -87,6 +91,7 @@ def work(lines):
     return tokenList
 
 def lex(pro_path, token_path):
+    init()
     if not os.path.exists(pro_path):
         print(f"Open pro_path:{pro_path} failed")
         return -1

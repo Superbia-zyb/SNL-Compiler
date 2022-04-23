@@ -1,0 +1,21 @@
+i:0, kind:IntegerK, name:t1, level:0, typePtr:{'kind': 'IntegerK', 'size': 2}, body:, params:None, ifType:True
+i:0, kind:RecordK, name:w1, level:0, typePtr:{'kind': 'RecordK', 'size': 11}, body:{'kind': 'IntegerK', 'size': 2, 'name': 'x'}{'kind': 'IntegerK', 'size': 2, 'name': 'y'}{'kind': 'CharK', 'size': 1, 'name': 'cx'}{'kind': 'CharK', 'size': 1, 'name': 'cy'}{'kind': 'ArrayK', 'size': 5, 'arrayAttr': {'indexTy': {'low': '0', 'up': '5'}, 'elemTy': {'kind': 'CharK', 'size': 1}}, 'arrayKind': 'CharK', 'name': 'cc'}, params:None, ifType:False
+i:0, kind:IntegerK, name:v1, level:0, typePtr:{'kind': 'IntegerK', 'size': 2}, body:, params:None, ifType:False
+i:0, kind:IntegerK, name:v2, level:0, typePtr:{'kind': 'IntegerK', 'size': 2}, body:, params:None, ifType:False
+i:0, kind:CharK, name:c1, level:0, typePtr:{'kind': 'CharK', 'size': 1}, body:, params:None, ifType:False
+i:0, kind:CharK, name:c2, level:0, typePtr:{'kind': 'CharK', 'size': 1}, body:, params:None, ifType:False
+i:0, kind:ArrayK, name:a, level:0, typePtr:{'kind': 'ArrayK', 'size': 8, 'arrayAttr': {'indexTy': {'low': '0', 'up': '4'}, 'elemTy': {'kind': 'IntegerK', 'size': 2}}, 'arrayKind': 'IntegerK'}, body:, params:None, ifType:False
+i:0, kind:ProcDecK, name:q, level:0, typePtr:{'kind': 'ProcDecK', 'size': 0}, body:, params:[{'kind': 'IntegerK', 'name': 'i'}, {'kind': 'IntegerK', 'name': 'j'}], ifType:False
+i:0, kind:ProcDecK, name:p, level:0, typePtr:{'kind': 'ProcDecK', 'size': 0}, body:, params:[{'kind': 'IntegerK', 'name': 'i'}, {'kind': 'IntegerK', 'name': 'j'}, {'kind': 'CharK', 'name': 'c1'}, {'kind': 'CharK', 'name': 'c2'}], ifType:False
+i:1, kind:IntegerK, name:i, level:1, typePtr:{'kind': 'IntegerK', 'size': 2}, body:, params:None, ifType:False
+i:1, kind:IntegerK, name:j, level:1, typePtr:{'kind': 'IntegerK', 'size': 2}, body:, params:None, ifType:False
+i:1, kind:IntegerK, name:a, level:1, typePtr:{'kind': 'IntegerK', 'size': 2}, body:, params:None, ifType:False
+i:1, kind:IntegerK, name:i, level:1, typePtr:{'kind': 'IntegerK', 'size': 2}, body:, params:None, ifType:False
+i:1, kind:IntegerK, name:j, level:1, typePtr:{'kind': 'IntegerK', 'size': 2}, body:, params:None, ifType:False
+i:1, kind:CharK, name:c1, level:1, typePtr:{'kind': 'CharK', 'size': 1}, body:, params:None, ifType:False
+i:1, kind:CharK, name:c2, level:1, typePtr:{'kind': 'CharK', 'size': 1}, body:, params:None, ifType:False
+i:1, kind:IntegerK, name:b, level:1, typePtr:{'kind': 'IntegerK', 'size': 2}, body:, params:None, ifType:False
+i:1, kind:ProcDecK, name:p, level:1, typePtr:{'kind': 'ProcDecK', 'size': 0}, body:, params:[{'kind': 'CharK', 'name': 'i'}, {'kind': 'CharK', 'name': 'j'}], ifType:False
+i:2, kind:CharK, name:i, level:2, typePtr:{'kind': 'CharK', 'size': 1}, body:, params:None, ifType:False
+i:2, kind:CharK, name:j, level:2, typePtr:{'kind': 'CharK', 'size': 1}, body:, params:None, ifType:False
+i:2, kind:CharK, name:a, level:2, typePtr:{'kind': 'CharK', 'size': 1}, body:, params:None, ifType:False

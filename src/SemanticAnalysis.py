@@ -79,7 +79,8 @@ def error(*param):
             s += x
         else:
             s = s + str(x) + " "
-    print(f"\033[31m{s}\033[0m")
+    #print(f"\033[31m{s}\033[0m")
+    print(s)
 
 def dfs(node):
     for x in node.child:
@@ -275,6 +276,8 @@ def getKind(node):
                 for y in x.child:
                     generate_table(y)
             return getFieldKind(nd)
+    if node.kind == 'OpK':
+        return operator(node, node.name[0])
 
 def operator(node, op):
     kindList = []
@@ -425,11 +428,25 @@ def table_print(table):
 
 root = None
 
+def init():
+    global root, all_scope, sl, off, flag, scope
+    root = None
+    all_scope = [[]]
+    scope = [[]]
+    sl = 0
+    off = 0
+    flag = False
+
 def semantic(tree_path):
     global root
+    init()
     root = generate_node(tree_path)
     visTree(root)
     generate_table(root)
+    with open('../data/semanticTables.txt', "w") as f:
+        for i in range(len(all_scope)):
+            for x in all_scope[i]:
+                f.write(f"i:{i}, " + str(x) + '\n')
     # print("all_scope:")
     # table_print(all_scope)
     if flag:
