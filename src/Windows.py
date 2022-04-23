@@ -99,7 +99,7 @@ class Window(QWidget):
         self.SyntaxTree.setText("")
 
     def start(self):
-        print("---------analysis---------")
+        print("\n---------analysis---------")
         self.SemanticTables.setText("")
         self.TokenList.setText("")
         self.SyntaxTree.setText("")
@@ -124,9 +124,12 @@ class Window(QWidget):
 
         result = work(self.ChooseButton.currentIndex())
         if result:
-            self.SyntaxTreeLabel.setText('<a href="../data/语法树可视化图.html/">Syntax Tree</a>')
+            url = os.getcwd()
+            url = url.split('/')[:-1]
+            url = "file://" + '/'.join(url) + '/data/语法树可视化图.html'
+            url = f'<a href="{url}">Syntax Tree'
+            self.SyntaxTreeLabel.setText(url)
 
-        print(self.SyntaxTreeLabel.openExternalLinks())
         with open('../data/token.txt', 'r') as f:
             tokenList = f.read()
         f.close()
