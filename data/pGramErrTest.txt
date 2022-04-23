@@ -6,7 +6,7 @@ integer x;
         end;
 var integer v1,v2;
 array[0..5] of integer a;
-procedure q(integer i;integer j);
+ q(integer i;integer j);
 var integer a;
 begin
 a:=i;
@@ -20,4 +20,7 @@ else v1:=v1-
 fi;
 q(v1,10);
 a[2]:=a[3]+4
+while a do
+   write(a)
+endwh;
 end
