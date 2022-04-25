@@ -5,6 +5,7 @@ from PyQt5 import QtCore, QtGui
 from PyQt5.QtCore import Qt, QRect
 from main import work
 from PyQt5.QtGui import QTextCursor, QColor, QTextFormat
+from QCodeEditor import QCodeEditor
 
 class Stream(QtCore.QObject):
     """Redirects console output to text widget."""
@@ -24,7 +25,7 @@ class Window(QWidget):
         font = QtGui.QFont("Monaco", 15)
         label_font = QtGui.QFont("Monaco", 14)
 
-        self.Program = QTextEdit(self)
+        self.Program = QCodeEditor(self)
         self.Program.setAcceptRichText(False)
         self.Program.setFont(font)
 
@@ -76,9 +77,10 @@ class Window(QWidget):
         self.all_h_layout = QHBoxLayout()
         self.all_v_layout = QVBoxLayout()
         self.layout_init()
-        self.currentLineNumber = None
-        self.highligtCurrentLine()
-        self.Program.cursorPositionChanged.connect(self.highligtCurrentLine)
+
+        # self.currentLineNumber = None
+        # self.highligtCurrentLine()
+        # self.Program.cursorPositionChanged.connect(self.highligtCurrentLine)
 
     def open(self):
         filename = QFileDialog.getOpenFileName(self, '选择文件')

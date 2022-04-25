@@ -5,14 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03ec4faa-53c4-44cb-b94b-57d2cd9ed85a" name="默认变更列表" comment="默认变更列表">
-      <change beforePath="$PROJECT_DIR$/.idea/SNL-Compiler.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SNL-Compiler.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/number.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/QCodeEditor.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/program.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/program.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/semanticTables.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/semanticTables.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/syntax_tree.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/syntax_tree.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/token.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/token.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/语法树可视化图.html" beforeDir="false" afterPath="$PROJECT_DIR$/data/语法树可视化图.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Recursion.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Recursion.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Windows.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/test.py" afterDir="false" />
     </list>
@@ -61,6 +61,28 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
   </component>
   <component name="RunManager" selected="Python.Windows">
+    <configuration name="QCodeEditor" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+      <module name="SNL-Compiler" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="/opt/anaconda3/envs/opertor/bin/python3.7" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/QCodeEditor.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="Windows" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="SNL-Compiler" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -128,8 +150,9 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.test" />
       <item itemvalue="Python.Windows" />
+      <item itemvalue="Python.test" />
+      <item itemvalue="Python.QCodeEditor" />
       <item itemvalue="Python.main" />
     </list>
     <recent_temporary>
@@ -148,7 +171,8 @@
       <updated>1650629495932</updated>
       <workItem from="1650695495067" duration="12601000" />
       <workItem from="1650709608683" duration="2979000" />
-      <workItem from="1650712850224" duration="11544000" />
+      <workItem from="1650712850224" duration="17130000" />
+      <workItem from="1650771701194" duration="913000" />
     </task>
     <servers />
   </component>
@@ -167,9 +191,9 @@
     </option>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/SNL_Compiler$main.coverage" NAME="main Coverage Results" MODIFIED="1650710138925" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/SNL_Compiler$main.coverage" NAME="main Coverage Results" MODIFIED="1650732691617" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/SNL_Compiler$windows.coverage" NAME="Windows Coverage Results" MODIFIED="1650709502975" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/SNL_Compiler$Windows.coverage" NAME="Windows Coverage Results" MODIFIED="1650732522158" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/SNL_Compiler$test.coverage" NAME="test Coverage Results" MODIFIED="1650732647571" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/SNL_Compiler$Windows.coverage" NAME="Windows Coverage Results" MODIFIED="1650772647657" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/SNL_Compiler$test.coverage" NAME="test Coverage Results" MODIFIED="1650771755456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>
