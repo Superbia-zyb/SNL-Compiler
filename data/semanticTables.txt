@@ -1,5 +1,3 @@
-i:0, kind:IntegerK, name:t1, level:0, typePtr:{'kind': 'IntegerK', 'size': 2}, body:, params:None, ifType:True
-
 i:0, kind:RecordK, name:w1, level:0, typePtr:{'kind': 'RecordK', 'size': 11}, body:{'kind': 'IntegerK', 'size': 2, 'name': 'x'}{'kind': 'IntegerK', 'size': 2, 'name': 'y'}{'kind': 'CharK', 'size': 1, 'name': 'cx'}{'kind': 'CharK', 'size': 1, 'name': 'cy'}{'kind': 'ArrayK', 'size': 5, 'arrayAttr': {'indexTy': {'low': '0', 'up': '5'}, 'elemTy': {'kind': 'CharK', 'size': 1}}, 'arrayKind': 'CharK', 'name': 'cc'}, params:None, ifType:False
 
 i:0, kind:IntegerK, name:v1, level:0, typePtr:{'kind': 'IntegerK', 'size': 2}, body:, params:None, ifType:False

@@ -3,7 +3,7 @@
 1 Reserved_word TYPE
 1 ID t1
 1 Other =
-1 Reserved_word INTEGER
+1 ID intege
 1 Other ;
 2 ID w1
 2 Other =

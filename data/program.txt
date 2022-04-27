@@ -1,5 +1,5 @@
 program p
-type  t1 = integer;
+type  t1 = intege;
 w1=record
         integer x;
         integer x;
@@ -19,7 +19,7 @@ end
 
 procedure p(integer i, j;char c1,c2);
 var integer b;
-procedure p(char i, j);
+    procedure p(char i, j);
     var char a; char i;
     begin
     a:=i;

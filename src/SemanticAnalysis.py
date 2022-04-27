@@ -414,6 +414,8 @@ def generate_table(node):
                 error(node.rawline, "type duplicated:", x.name[0])
                 continue
             tab = CallSymbolTable(x, x.name[0], level=sl, off=off, ifType=True)
+            if tab is None:
+                continue
             scope[sl].append(tab)
             all_scope[sl].append(tab)
     else:
@@ -452,3 +454,7 @@ def semantic(tree_path):
     if flag:
         return -1
     return 0
+
+if __name__ == '__main__':
+    init()
+    semantic("../data/syntax_tree.txt")
