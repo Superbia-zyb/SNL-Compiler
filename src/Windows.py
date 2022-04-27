@@ -131,6 +131,7 @@ class Window(QWidget):
         result = work(self.ChooseButton.currentIndex())
         if result:
             url = os.getcwd()
+            url = url.replace('\\', '/')
             url = url.split('/')[:-1]
             url = "file://" + '/'.join(url) + '/data/语法树可视化图.html'
             url = f'<a href="{url}">Syntax Tree'
