@@ -128,7 +128,7 @@ class LL1:
             else:
                 print('有语法错误，且尝试修复失败，语法树生成失败，不可继续运行')
             for i in range(len(self.errImag)):
-                print(self.errImag[i])
+                print(f"line:{self.errImag[i]['line']} {self.errImag[i]['message']}")
         if len(self.errImag) > 0:
             return -1, self.errImag
         return 0, self.errImag

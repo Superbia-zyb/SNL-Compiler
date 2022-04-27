@@ -78,6 +78,7 @@ class Window(QWidget):
         self.all_v_layout = QVBoxLayout()
         self.layout_init()
 
+        self.errLine = []
         # self.currentLineNumber = None
         # self.highligtCurrentLine()
         # self.Program.cursorPositionChanged.connect(self.highligtCurrentLine)
@@ -100,9 +101,11 @@ class Window(QWidget):
         self.SemanticTables.setText("")
         self.TokenList.setText("")
         self.SyntaxTree.setText("")
+        self.errLine = []
 
     def start(self):
         print("\n---------analysis---------")
+        self.errLine = []
         self.SemanticTables.setText("")
         self.TokenList.setText("")
         self.SyntaxTree.setText("")
@@ -149,10 +152,35 @@ class Window(QWidget):
         f.close()
         self.SemanticTables.setText(semanticTables)
 
+        self.mark()
+
+    def mark(self):
+        t = self.Program.toPlainText()
+        tt = t.split('\n')
+        self.Program.setText("")
+        for i in range(len(tt)):
+            # tt[i] = tt[i].replace(" ", " &nbsp ", -1)
+            tt[i] = tt[i].replace(" ", "&nbsp;", -1)
+            red = "<font style=\"background-color:#FF0000\">" + tt[i] + "</font>" + "<br>"
+            black = "<font>" + tt[i] + "</font>" + "<br>"
+            flag = False
+            for x in self.errLine:
+                if i + 1 == x:
+                    flag = True
+            if flag:
+                self.Program.insertHtml(red)
+            else:
+                self.Program.insertHtml(black)
+
     def console(self, text):
         # text = "<font color=\"#FF0000\">" + text + "</font>"
         t = self.Console.toPlainText()
         self.Console.setText(t + text)
+
+        if text.find("line") != -1:
+            ll = text.split(" ")[0]
+            num = ll.split(":")[-1]
+            self.errLine.append(int(num))
         # self.Console.moveCursor(QTextCursor.End)
         # self.Console.append(text)
         self.Console.verticalScrollBar().setValue(self.Console.verticalScrollBar().maximum())
@@ -168,7 +196,6 @@ class Window(QWidget):
             hi_selection.cursor = self.Program.textCursor()
             hi_selection.cursor.clearSelection()
             self.Program.setExtraSelections([hi_selection])
-
 
     def layout_init(self):
         self.ConsoleLayout.addWidget(self.ConsoleLabel)

@@ -13,3 +13,6 @@ def recurse(token_path):
     if exitcode != 0:
         return -1
     return 0
+
+if __name__ == '__main__':
+    recurse("../data/token.txt")

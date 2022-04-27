@@ -79,8 +79,8 @@ def error(*param):
             s += x
         else:
             s = s + str(x) + " "
-    #print(f"\033[31m{s}\033[0m")
-    print(s)
+    # print(f"\033[31m{s}\033[0m")
+    print("line:" + s)
 
 def dfs(node):
     for x in node.child:

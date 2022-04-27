@@ -1,5 +1,5 @@
 program p
-type  t1 = intege;
+type  t1 = integer;
 w1=record
         integer x;
         integer x;

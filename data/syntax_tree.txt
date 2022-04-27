@@ -1,7 +1,7 @@
 ProK 56
    PheadK 0 p
    TypeK 1
-      DecK 1 IdK intege t1 
+      DecK 1 IntegerK t1 
       DecK 2 RecordK w1 
          DecK 3 IntegerK x 
          DecK 4 IntegerK x 

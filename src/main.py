@@ -33,3 +33,6 @@ def work(col=1):
 
 # work(1)
 #work(1)
+
+if __name__ == '__main__':
+    work()
