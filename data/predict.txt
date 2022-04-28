@@ -1,0 +1,105 @@
+1 {'PROGRAM'}
+2 {'PROGRAM'}
+3 {'ID'}
+4 {'VAR', 'TYPE', 'BEGIN', 'PROCEDURE'}
+5 {'BEGIN', 'VAR', 'PROCEDURE'}
+6 {'TYPE'}
+7 {'TYPE'}
+8 {'ID'}
+9 {'BEGIN', 'VAR', 'PROCEDURE'}
+10 {'ID'}
+11 {'ID'}
+12 {'INTEGER', 'CHAR'}
+13 {'RECORD', 'ARRAY'}
+14 {'ID'}
+15 {'INTEGER'}
+16 {'CHAR'}
+17 {'ARRAY'}
+18 {'RECORD'}
+19 {'ARRAY'}
+20 {'INTC'}
+21 {'INTC'}
+22 {'RECORD'}
+23 {'INTEGER', 'CHAR'}
+24 {'ARRAY'}
+25 {'END'}
+26 {'ARRAY', 'INTEGER', 'CHAR'}
+27 {'ID'}
+28 {';'}
+29 {','}
+30 {'BEGIN', 'PROCEDURE'}
+31 {'VAR'}
+32 {'VAR'}
+33 {'ARRAY', 'ID', 'RECORD', 'CHAR', 'INTEGER'}
+34 {'BEGIN', 'PROCEDURE'}
+35 {'ID', 'RECORD', 'CHAR', 'ARRAY', 'INTEGER'}
+36 {'ID'}
+37 {';'}
+38 {','}
+39 {'BEGIN'}
+40 {'PROCEDURE'}
+41 {'PROCEDURE'}
+42 {'BEGIN'}
+43 {'PROCEDURE'}
+44 {'ID'}
+45 {')'}
+46 {'ARRAY', 'ID', 'RECORD', 'CHAR', 'VAR', 'INTEGER'}
+47 {'ID', 'RECORD', 'CHAR', 'ARRAY', 'VAR', 'INTEGER'}
+48 {')'} //
+49 {';'}
+50 {'ARRAY', 'ID', 'RECORD', 'CHAR', 'INTEGER'}
+51 {'VAR'}
+52 {'ID'}
+53 {';', ')'}
+54 {','}
+55 {'VAR', 'TYPE', 'BEGIN', 'PROCEDURE'}
+56 {'BEGIN'}
+57 {'BEGIN'}
+58 {'ID', 'READ', 'WRITE', 'WHILE', 'RETURN', 'IF'}
+59 {'ENDWH', 'END', 'FI', 'ELSE'}
+60 {';'}
+61 {'IF'}
+62 {'WHILE'}
+63 {'READ'}
+64 {'WRITE'}
+65 {'RETURN'}
+66 {'ID'}
+67 {'[', ':=', '.'} //
+68 {'('}
+69 {'[', ':=', '.'}
+70 {'IF'}
+71 {'WHILE'}
+72 {'READ'}
+73 {'ID'}
+74 {'WRITE'}
+75 {'RETURN'}
+76 {'('}
+77 {')'}
+78 {'(', 'ID', 'INTC', 'CHARC'} //
+79 {')'}
+80 {','}
+81 {'(', 'ID', 'INTC', 'CHARC'} //
+82 {'<', '='}
+83 {'(', 'ID', 'INTC', 'CHARC'} //
+84 {')', ']', ',', 'FI', ';', '<', 'ENDWH', 'END', 'DO', '=', 'ELSE', 'THEN'}
+85 {'+', '-'}
+86 {'(', 'ID', 'INTC', 'CHARC'} //
+87 {')', ']', '+', ',', 'FI', '-', ';', '<', 'ENDWH', 'END', 'DO', '=', 'ELSE', 'THEN'}
+88 {'/', '*'}
+89 {'('}
+90 {'INTC'}
+91 {'CHARC'} //？
+92 {'ID'}
+93 {'ID'}
+94 {')', ']', '-', 'ENDWH', '=', '+', ',', 'FI', ';', '<', ':=', 'END', '*', 'DO', '/', 'ELSE', 'THEN'}
+95 {'['}
+96 {'.'}
+97 {'ID'}
+98 {')', ']', '-', 'ENDWH', '=', '+', ',', 'FI', ';', '<', ':=', 'END', '*', 'DO', '/', 'ELSE', 'THEN'}
+99 {'['}
+100 {'<'}
+101 {'='}
+102 {'+'}
+103 {'-'}
+104 {'*'}
+105 {'/'}

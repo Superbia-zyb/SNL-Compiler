@@ -84,6 +84,7 @@ class Window(QWidget):
         # self.Program.cursorPositionChanged.connect(self.highligtCurrentLine)
 
     def open(self):
+        self.Program.setText("")
         filename = QFileDialog.getOpenFileName(self, '选择文件')
         print("choose file: \n", filename[0])
         if os.path.exists(filename[0]) is False:
