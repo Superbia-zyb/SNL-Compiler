@@ -109,8 +109,8 @@ def getPredict():
             k = 1
         # print(first)
         # print(follow)
-        for key in predict:
-            print(key, predict[key])
+        # for key in predict:
+        #     print(key, predict[key])
 
         return predict, left, only_right
 

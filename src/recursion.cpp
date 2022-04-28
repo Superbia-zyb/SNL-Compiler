@@ -144,7 +144,7 @@ int flag=0;
 void error(int ll,string s){
     if(flag) return;
     flag = true;
-    cout<<"line:"<<ll<<" "<<s<<endl;
+    cout<<"line:"<<ll+1<<" "<<s<<endl;
 }
 void print_null(int n){
     while(n--!=0) output<<"   ";
@@ -941,6 +941,9 @@ void BaseType(Node *t){
     //output<<"BaseType"<<endl;
     if(token=="INTEGER") t->kind.dec=IntegerK;
     else if(token=="CHAR") t->kind.dec=CharK;
+    else {
+        error(line, "there is no INTEGER or CHAR");
+    }
     read_token();
 }
 void TypeName(Node *t){

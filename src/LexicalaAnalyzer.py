@@ -21,6 +21,7 @@ def add(word, num, err=False):
     if err:
         flag = -1
         tokenList.append(Token(num, "ERROR", word))
+        print(f"line:{num}, invalid: {word}")
     elif str.isdigit(word):
         tokenList.append(Token(num, "INTC", int(word, 10)))
     elif word in delimiters:

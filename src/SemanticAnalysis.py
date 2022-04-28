@@ -303,7 +303,7 @@ def operator(node, op):
     return kindList[0]
 
 def generate_table(node):
-    global sl, scope
+    global sl, scope,off
     # ProK, PheadK, TypeK, VarK, ProDecK, StmLK, DecK, Stmtk, ExpK
     if node.nodeKind == "DecK":
         for x in node.name:
@@ -317,7 +317,17 @@ def generate_table(node):
                 for y in node.child:
                     body.append(y)
 
+
             tab = CallSymbolTable(node, x, level=sl, off=off, body=body)
+            if tab is None:
+                continue
+
+            if len(scope[sl]) == 0:
+                tab.off = 0
+            else:
+                tmp = scope[sl][-1]
+                tab.off = tmp.typePtr.size + tmp.off
+
             scope[sl].append(tab)
             all_scope[sl].append(tab)
             if node.kind == "RecordK":
@@ -336,6 +346,15 @@ def generate_table(node):
                         params.append({"kind": x.kind, "name": y})
         node.kind = "ProcDecK"
         tab = CallSymbolTable(node, node.name[0], level=sl, off=off, params=params)
+        if tab is None:
+            return
+
+        if len(scope[sl]) == 0:
+            tab.off = 0
+        else:
+            tmp = scope[sl][-1]
+            tab.off = tmp.typePtr.size + tmp.off
+
         scope[sl].append(tab)
         all_scope[sl].append(tab)
 
@@ -416,6 +435,13 @@ def generate_table(node):
             tab = CallSymbolTable(x, x.name[0], level=sl, off=off, ifType=True)
             if tab is None:
                 continue
+
+            if len(scope[sl]) == 0:
+                tab.off = 0
+            else:
+                tmp = scope[sl][-1]
+                tab.off = tmp.typePtr.size + tmp.off
+
             scope[sl].append(tab)
             all_scope[sl].append(tab)
     else:
@@ -448,7 +474,17 @@ def semantic(tree_path):
     with open('../data/semanticTables.txt', "w") as f:
         for i in range(len(all_scope)):
             for x in all_scope[i]:
-                f.write(f"i:{i}, " + str(x) + '\n\n')
+                dic = x.__dict__
+                f.write(f"line:{i}\n")
+                for key in x.__dict__:
+                    if dic[key] is not None:
+                        if type(dic[key]) == list:
+                            f.write(f"{key}:\n")
+                            for xx in dic[key]:
+                                f.write("   " + str(xx) + "\n")
+                        else:
+                            f.write(f"{key}:{dic[key]}\n")
+                f.write("\n")
     # print("all_scope:")
     # table_print(all_scope)
     if flag:
