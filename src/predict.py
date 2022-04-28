@@ -112,7 +112,7 @@ def getPredict():
         for key in predict:
             print(key, predict[key])
 
-        #return predict, left, only_right
+        return predict, left, only_right
 
 if __name__ == '__main__':
     getPredict()

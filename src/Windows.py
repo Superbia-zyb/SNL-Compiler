@@ -217,8 +217,8 @@ class Window(QWidget):
 
         self.OptionLayout.addStretch(1)
         self.OptionLayout.addWidget(self.ChooseButton)
-        self.OptionLayout.addStretch(0.5)
-        self.OptionLayout.addWidget(self.FormatButton)
+        # self.OptionLayout.addStretch(0.5)
+        # self.OptionLayout.addWidget(self.FormatButton)
         self.OptionLayout.addStretch(0.5)
         self.OptionLayout.addWidget(self.ResetButton)
         self.OptionLayout.addStretch(0.5)
