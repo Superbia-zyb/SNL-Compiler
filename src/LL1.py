@@ -93,6 +93,14 @@ class LL1:
                     errJudge, ErrImag = self.dealError.run(self.SignStack, self.TokenStack, self.signRpush, self.signRpop, self.tokenRpush)
                     Err = {'line': 0, 'message': ' '}
                     Err['line'] = int(toke[0])
+                    lineAdd1 = ['常量', ';']
+                    judgeAdd1 = True
+                    for i in range(len(lineAdd1)):
+                        if lineAdd1[i] in ErrImag:
+                            judgeAdd1 = False
+                            break
+                    if judgeAdd1:
+                        Err['line'] += 1
                     Err['message'] = ErrImag
                     self.errImag.append(Err)
                     if not errJudge:
@@ -106,6 +114,14 @@ class LL1:
                     errJudge, ErrImag = self.dealError.run(self.SignStack, self.TokenStack, self.signRpush, self.signRpop, self.tokenRpush)
                     Err = {'line': 0, 'message': ' '}
                     Err['line'] = int(toke[0])
+                    lineAdd1 = ['常量', ';']
+                    judgeAdd1 = True
+                    for i in range(len(lineAdd1)):
+                        if lineAdd1[i] in ErrImag:
+                            judgeAdd1 = False
+                            break
+                    if judgeAdd1:
+                        Err['line'] += 1
                     Err['message'] = ErrImag
                     self.errImag.append(Err)
                     if not errJudge:
