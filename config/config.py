@@ -24,7 +24,7 @@ reservedWords = {
     "id": "ID",
     "intc": "INTC",
     "character": "CHARACTER",
-}  # 保留字
+}  # x
 
 delimiters = {
     ".": "DOT",

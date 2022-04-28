@@ -163,6 +163,7 @@ class Window(QWidget):
         for i in range(len(tt)):
             # tt[i] = tt[i].replace(" ", " &nbsp ", -1)
             tt[i] = tt[i].replace(" ", "&nbsp;", -1)
+            tt[i] = tt[i].replace("<", "&lt;", -1)
             red = "<font style=\"background-color:#FF0000\">" + tt[i] + "</font>" + "<br>"
             black = "<font>" + tt[i] + "</font>" + "<br>"
             flag = False
