@@ -5,11 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03ec4faa-53c4-44cb-b94b-57d2cd9ed85a" name="默认变更列表" comment="默认变更列表">
-      <change afterPath="$PROJECT_DIR$/data/predict.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/program.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/program.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/semanticTables.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/semanticTables.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/syntax_tree.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/syntax_tree.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/token.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/token.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/语法树可视化图.html" beforeDir="false" afterPath="$PROJECT_DIR$/data/语法树可视化图.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LL1.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/LL1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Recursion.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Recursion.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/SemanticAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/SemanticAnalysis.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Windows.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/predict.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/predict.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -186,28 +192,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="predict" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="SNL-Compiler" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/predict.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="test" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="SNL-Compiler" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -237,11 +221,9 @@
       <item itemvalue="Python.main" />
       <item itemvalue="Python.SemanticAnalysis" />
       <item itemvalue="Python.Recursion" />
-      <item itemvalue="Python.predict" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.predict" />
         <item itemvalue="Python.Recursion" />
         <item itemvalue="Python.SemanticAnalysis" />
         <item itemvalue="Python.main" />
@@ -262,8 +244,7 @@
       <workItem from="1650771701194" duration="2407000" />
       <workItem from="1650983162654" duration="462000" />
       <workItem from="1651042926268" duration="689000" />
-      <workItem from="1651043740516" duration="10267000" />
-      <workItem from="1651064396801" duration="2923000" />
+      <workItem from="1651043740516" duration="7297000" />
     </task>
     <servers />
   </component>
@@ -297,8 +278,7 @@
     <SUITE FILE_PATH="coverage/SNL_Compiler$Recursion.coverage" NAME="Recursion Coverage Results" MODIFIED="1651051181073" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/SNL_Compiler$windows.coverage" NAME="Windows Coverage Results" MODIFIED="1650709502975" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/SNL_Compiler$SemanticAnalysis.coverage" NAME="SemanticAnalysis Coverage Results" MODIFIED="1651044409635" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/SNL_Compiler$predict.coverage" NAME="predict Coverage Results" MODIFIED="1651069487873" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/SNL_Compiler$Windows.coverage" NAME="Windows Coverage Results" MODIFIED="1651069498123" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/SNL_Compiler$Windows.coverage" NAME="Windows Coverage Results" MODIFIED="1651053063020" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/SNL_Compiler$test.coverage" NAME="test Coverage Results" MODIFIED="1650771755456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>
