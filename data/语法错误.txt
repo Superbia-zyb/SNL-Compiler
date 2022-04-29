@@ -27,7 +27,3 @@ begin
     w1 cc:='c';
     w1 cc[1]:='c'
 end.
-
-
-
-

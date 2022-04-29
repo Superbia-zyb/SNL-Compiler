@@ -88,6 +88,7 @@ class Window(QWidget):
         print("choose file: \n", filename[0])
         if os.path.exists(filename[0]) is False:
             return
+        self.SyntaxTreeLabel.setText('Syntax Tree')
         self.Program.setText("")
         with open(filename[0], "r") as f:
             txt = f.read()
@@ -102,6 +103,7 @@ class Window(QWidget):
         self.SemanticTables.setText("")
         self.TokenList.setText("")
         self.SyntaxTree.setText("")
+        self.SyntaxTreeLabel.setText('Syntax Tree')
         self.errLine = []
 
     def start(self):
