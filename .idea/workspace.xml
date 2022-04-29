@@ -5,25 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="03ec4faa-53c4-44cb-b94b-57d2cd9ed85a" name="默认变更列表" comment="默认变更列表">
-      <change afterPath="$PROJECT_DIR$/data/词法错误.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/data/语法错误.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/编译课设实验报告的副本.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data/正确程序.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/p1.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/语义错误.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/p2.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/p3.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/program.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/program.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/semanticTables.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/semanticTables.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/syntax_tree.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/syntax_tree.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/token.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/token.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/tree1.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/data/语法树可视化图.html" beforeDir="false" afterPath="$PROJECT_DIR$/data/语法树可视化图.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SemanticAnalysis.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/SemanticAnalysis.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Windows.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Windows.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/recursion.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/recursion.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/work" beforeDir="false" afterPath="$PROJECT_DIR$/src/work" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/编译课设实验报告.docx" beforeDir="false" afterPath="$PROJECT_DIR$/编译课设实验报告.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/编译课设实验报告.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/编译课设实验报告.pdf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -292,7 +283,7 @@
     <SUITE FILE_PATH="coverage/SNL_Compiler$windows.coverage" NAME="Windows Coverage Results" MODIFIED="1650709502975" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/SNL_Compiler$SemanticAnalysis.coverage" NAME="SemanticAnalysis Coverage Results" MODIFIED="1651161069042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/SNL_Compiler$predict.coverage" NAME="predict Coverage Results" MODIFIED="1651069487873" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
-    <SUITE FILE_PATH="coverage/SNL_Compiler$Windows.coverage" NAME="Windows Coverage Results" MODIFIED="1651206476887" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
+    <SUITE FILE_PATH="coverage/SNL_Compiler$Windows.coverage" NAME="Windows Coverage Results" MODIFIED="1651223613297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
     <SUITE FILE_PATH="coverage/SNL_Compiler$test.coverage" NAME="test Coverage Results" MODIFIED="1650771755456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src" />
   </component>
 </project>

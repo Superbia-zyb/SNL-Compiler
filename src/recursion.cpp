@@ -142,7 +142,7 @@ void read_token(){
 }
 int flag=0;
 void error(int ll,string s){
-//    if(flag) return;
+    if(flag) return;
     flag = true;
     cout<<"line:"<<ll+1<<" "<<s<<endl;
 }
@@ -217,7 +217,7 @@ while(t!=NULL){
             output<<endl;
         }
         else {
-            error(t->lineno,"there is no correct decKindName");
+            error(t->lineno,"missing correct decKindName");
         }
     }
     else if(t->nodekind==StmtK){
@@ -250,7 +250,7 @@ while(t!=NULL){
             //for(int i=0;i<3;i++) if(t->child[i]!=NULL) print_tree(t->child[i],n+1);
         }
         else {
-            error(t->lineno,"there is no correct stmtKindName");
+            error(t->lineno,"missing correct stmtKindName");
         }
     }
     else if(t->nodekind==ExpK){
@@ -333,7 +333,7 @@ Node *factor(){
         return t;
     }
     else {
-        error(line,"there is no ( ID INTC to match");
+        error(line,"exp begins bad  ");
         read_token();
         return NULL;
     }
@@ -377,7 +377,7 @@ Node *Exp(){//v1-(10-11) rel_exp
         return t;
     }
     else if(if_c==true){
-    	error(line,"there is no < = to match");
+    	error(line,"missing '<' or '='  ");
     	//read_token();
     	return t;
 	}
@@ -395,11 +395,11 @@ void fieldvarMore(Node *t){//[]
         t->child[0]=Exp();
 //        t->child[0]->attr.ExpAttr.varkind=ArrayMembV;
 		t->attr.ExpAttr.varkind=ArrayMembV;
-        if(token!="]") error(line,"there is no ] to match");
+        if(token!="]") error(line,"missing ']'  ");
         read_token();
     }
     else {
-        error(line,"there is no correct to match");
+        error(line,"the exp ends bad");
         read_token();
     }
 }
@@ -410,7 +410,7 @@ Node *fieldvar(){//cc
         t->nodekind=ExpK;t->kind.exp=VariK;t->name[t->idnum++]=token;
 
     }
-    else error(line,"there is no ID to match");
+    else error(line,"missing 'ID'  ");
     read_token();
     fieldvarMore(t);
     return t;
@@ -430,7 +430,7 @@ void variMore(Node *t){//w1.
     else if(token=="["){
         t->attr.ExpAttr.varkind=ArrayMembV;
         read_token();t->child[0]=Exp();//t->child[0]->attr.ExpAttr.varkind = IdV;//中括号内是标识符变量----------------------------??如果我中括号内就是常数呢
-        if(token!="]") error(line,"there is no ] to match");
+        if(token!="]") error(line,"missing ']'  ");
         read_token();//书上没有
 
     }
@@ -439,7 +439,7 @@ void variMore(Node *t){//w1.
         read_token();t->child[0]=fieldvar();//t->child[0]->attr.ExpAttr.varkind = IdV;
     }
     else {
-        error(line+1,"there is no . [ to match");
+        error(line,"missing '.' or '['  ");
         read_token();
     }
 }
@@ -449,7 +449,7 @@ Node *AssignmentRest(){//v1-(10-11)  w1.
     Node *p=init_node();p->nodekind=ExpK;p->kind.exp=VariK;p->name[p->idnum++]=temp_name;
     variMore(p);t->child[0]=p;//进入的时候token已经有[ := .了
     //if(has_unread==false) read_token();has_unread=false;//默认要读，除非has_unread=true
-    if(token!=":=") error(line,"there is no := to match");
+    if(token!=":=") error(line,"missing ':='  ");
     read_token();
     t->child[1]=Exp();//v1+10
     return t;
@@ -463,7 +463,7 @@ Node *ActParamMore(){
     else if(token==")") return NULL;
     else {
 
-        error(line,"there is no ) or , to match");
+        error(line,"missing ')' or ','  ");
         read_token();
         return NULL;
     }
@@ -480,7 +480,7 @@ Node *ActParamList(){
         return t;
     }
     else {
-        error(line,"there is no ) or ID INTC CHARC to match");
+        error(line,"missing ')' or TypeName  ");
         read_token();
         return NULL;
     }
@@ -488,9 +488,9 @@ Node *ActParamList(){
 Node *CallStmRest(){
     //output<<"CallStmRest"<<endl;
     Node *t=init_node();t->nodekind=StmtK;t->kind.stmt=CallK;t->name[t->idnum++]=temp_name;
-    if(token!="(") error(line,"there is no ( to match");
+    if(token!="(") error(line,"missing '('  ");
     read_token();t->child[0]=ActParamList();
-    if(token!=")") error(line,"there is no ) to match");
+    if(token!=")") error(line,"missing ')'  ");
     read_token();
     return t;
 }
@@ -501,7 +501,7 @@ Node *AssCall(){//else 后面的部分 w1.
     }
     else if(token=="["||token==":="||token==".") return AssignmentRest();
     else {
-        error(line,"there is no [ := . ( to match");
+        error(line,"missing '[' OR ':=' OR '.' OR '('  ");
         read_token();
         return NULL;
     }
@@ -509,68 +509,68 @@ Node *AssCall(){//else 后面的部分 w1.
 Node *ReturnStm(){//退出时是； （和书上不一样）
     //output<<"ReturnStm"<<endl;
     Node *t=init_node();t->nodekind=StmtK;t->kind.stmt=ReturnK;
-    if(token!="RETURN") error(line,"there is no RETURN to match");
+    if(token!="RETURN") error(line,"missing RETURN  ");
     read_token();
-    if(token!="("){error(line,"there is no ( to match");}
+    if(token!="("){error(line,"missing '('  ");}
     read_token();
 
     t->child[0]=Exp();
-    if(token!=")") error(line,"there is no ) to match");
+    if(token!=")") error(line,"missing ')'  ");
     read_token();
     return t;
 }
 Node *OutputStm(){//退出时是；
     //output<<"OutputStm"<<endl;
     Node *t=init_node();t->nodekind=StmtK;t->kind.stmt=WriteK;
-    if(token!="WRITE") error(line,"there is no WRITE to match");
+    if(token!="WRITE") error(line,"missing WRITE  ");
     read_token();
-    if(token!="("){error(line,"there is no ( to match");}
+    if(token!="("){error(line,"missing '('  ");}
     read_token();
 
     t->child[0]=Exp();
-    if(token!=")") error(line,"there is no ) to match");
+    if(token!=")") error(line,"missing ')'  ");
     read_token();
     return t;
 }
 Node *InputStm(){//退出时是；
     //output<<"InputStm"<<endl;
     Node *t=init_node();t->nodekind=StmtK;t->kind.stmt=ReadK;
-    if(token!="READ") error(line,"there is no READ to match");
+    if(token!="READ") error(line,"missing READ  ");
     read_token();
-    if(token!="("){error(line,"there is no ( to match");}
+    if(token!="("){error(line,"missing '('  ");}
     read_token();
 
     if(type=="ID"){
         t->name[t->idnum++]=token;
     }
-    else error(line,"there is no ID to match");
+    else error(line,"missing 'ID'  ");
 
     read_token();
-    if(token!=")") error(line,"there is no ) to match");
+    if(token!=")") error(line,"missing ')'  ");
     read_token();
     return t;
 }
 Node *LoopStm(){//退出时是endwh下一个 (和书上不一样)
     //output<<"LoopStm"<<endl;
     Node *t=init_node();t->nodekind=StmtK;t->kind.stmt=WhileK;
-    if(token!="WHILE") error(line,"there is no WHILE to match");
+    if(token!="WHILE") error(line,"missing WHILE  ");
     read_token();if_c=true;t->child[0]=Exp();if_c=false;
-    if(token!="DO") {error(line,"there is no DO to match");}
+    if(token!="DO") {error(line,"missing DO  ");}
     read_token();t->child[1]=StmList();
-    if(token!="ENDWH") {error(line,"there is no ENDWH to match");}
+    if(token!="ENDWH") {error(line,"missing ENDWH  ");}
     read_token();
     return t;
 }
 Node *ConditionalStm(){//退出时是FI下一个
     //output<<"ConditionalStm"<<endl;
     Node *t=init_node();t->nodekind=StmtK;t->kind.stmt=IfK;
-    if(token!="IF") error(line,"there is no IF to match");
+    if(token!="IF") error(line,"missing IF  ");
     read_token();
     if_c=true;
     t->child[0]=Exp();
 	if_c=false;
 
-    if(token!="THEN"){error(line,"there is no THEN to match");};
+    if(token!="THEN"){error(line,"missing THEN  ");};
     read_token();
     t->child[1]=StmList();//条件为真的语句
 
@@ -578,7 +578,7 @@ Node *ConditionalStm(){//退出时是FI下一个
         read_token();t->child[2]=StmList();//条件为假的语句
     }
 
-    if(token!="FI"){error(line,"there is no FI to match");};
+    if(token!="FI"){error(line,"missing FI  ");};
     read_token();
 
     return t;
@@ -593,7 +593,7 @@ Node *Stm(){//AssCall前面比书多读了
     else if(type=="ID") {temp_name=token;read_token();return AssCall();}//TEMP_NAME
     //else if(token=="END") return NULL;
     else {
-        error(line,"there is no IF WHILE READ RETURN ID WRITE to match");
+        error(line,"the stm starts bad  ");
         read_token();
         return NULL;
     }
@@ -610,8 +610,7 @@ Node *StmMore(){//只争对两个循环
         return NULL;
     }
     else {
-//
-        error(line,"there is no correct to match1");
+        error(line,"the stm ends bad");
         return NULL;
         read_token();
     }
@@ -636,10 +635,10 @@ Node *program_body(){
         //output<<"!!!!!!!"<<endl;
     }
     else {
-        error(line,"there is no BEGIN to match");
+        error(line,"missing BEGIN  ");
         //read_token();
     }
-    if(token!="END") error(line,"there is no END to match");
+    if(token!="END") error(line,"missing END  ");
     read_token();
     return t;
 }
@@ -649,7 +648,7 @@ Node *program_body(){
 Node *ProcBody(){
     //output<<"ProcBody"<<endl;
     Node *t= program_body();
-    if(t==NULL) error(line,"there is no program_body");
+    if(t==NULL) error(line,"missing program_body");
     return t;
 }
 Node *ProcDecPart(){
@@ -663,11 +662,11 @@ Node *ParamMore(){
     else if(token==";") {//最后一个参数声明没有;直接是）
         read_token();
         Node *p=ParamDecList();
-        if(p==NULL) error(line,"there is no ParamDecList or there is ; not nessesary");
+        if(p==NULL) error(line,"missing ParamDecList OR ';' is not need");
         return p;
     }
     else {
-        error(line,"there is no ) ; to match");
+        error(line,"missing ')' or ';' ");
         read_token();
         return NULL;
     }
@@ -678,7 +677,7 @@ void FidMore(Node *t){// 处理 integer a,b中这种有,的情况
     if(token==","){read_token();FormList(t);}
     else if(token==")"||token==";"){return;}
     else {
-        error(line,"there is no , ) ; to match");
+        error(line,"missing ',' or ')' or ';'  ");
         read_token();
     }
 }
@@ -688,7 +687,7 @@ void FormList(Node *t){//处理一系列a,b,c,dz
     if(type=="ID"){
         t->name[t->idnum++]=token;read_token();
     }
-    else error(line,"there is no ID to match");
+    else error(line,"missing ID  ");
     FidMore(t);
 }
 Node *Param(){//一个param是两个分号内的参数
@@ -703,7 +702,7 @@ Node *Param(){//一个param是两个分号内的参数
         TypeName(t);FormList(t);
     }
     else {
-        error(line,"there is no BaseType or TypeName or VAR to match");
+        error(line,"missing TypeName or VAR  ");
         read_token();
     }
     return t;
@@ -724,25 +723,25 @@ void ParamList(Node *t){//函数定义参数部分
         t->child[0]=ParamDecList();
     }
     else {
-        error(line,"there is no BaseType ) to match");
+        error(line,"missing BaseType or ')' ");
         read_token();
     }
 }
 Node *ProcDeclaration(){//t->sibling是新加的
     //output<<"ProcDeclaration"<<endl;
     Node *t=init_node();t->nodekind=ProcDecK;
-    if(token!="PROCEDURE") error(line,"there is no PROCEDURE to match");
+    if(token!="PROCEDURE") error(line,"missing PROCEDURE  ");
     read_token();
     if(type=="ID"){
         t->name[t->idnum++]=token;
         read_token();
     }
-    else error(line,"there is no ID to match");
+    else error(line,"missing program_ID  ");
 
-    if(token!="("){error(line,"there is no ( to match");}
+    if(token!="("){error(line,"missing '('  ");}
     read_token();ParamList(t);
-    if(token!=")"){error(line,"there is no ) to match");}
-    read_token();if(token!=";"){error(line,"there is no ; to match");}
+    if(token!=")"){error(line,"missing ')'  ");}
+    read_token();if(token!=";"){error(line,"missing ';'  ");}
     read_token();
     t->child[1]=ProcDecPart();
         //output<<"!!!!!!"<<endl;
@@ -758,7 +757,7 @@ Node *ProcDec(){
         return ProcDeclaration();
     }
     else {
-        error(line,"there is no BEGIN PROCEDURE to match");
+        error(line,"missing BEGIN ");
         read_token();
         return NULL;
     }
@@ -774,7 +773,7 @@ Node* VarDecMore(){
         return VarDecList();
     }
     else {
-        error(line,"there is no BaesType PROGRAM BEGIN to macth");
+        error(line,"missing TypeName");
         read_token();
         return NULL;
     }
@@ -785,7 +784,7 @@ void VarIdMore(Node *t){
     if(token==";") return ;
     else if(token==","){read_token();VarIdList(t);}
     else {
-        error(line,"there is no ; , to macth");
+        error(line,"missing ';' or ',' ");
         read_token();
     }
 }
@@ -794,7 +793,7 @@ void VarIdList(Node *t){
     //read_token();
     if(type=="ID") {t->name[t->idnum++]=token;read_token();}
     else {
-        error(line,"there is no ID to match");
+        error(line,"missing ID  ");
         read_token();
     }
     VarIdMore(t);
@@ -806,23 +805,23 @@ Node *VarDecList(){
     if(token=="CHAR"||token=="INTEGER"||token=="ARRAY"||token=="RECORD"||type=="ID"){
         TypeName(t);
         VarIdList(t);
-        if(token!=";") error(line,"there is no ; to match");
+        if(token!=";") error(line,"missing ';' ");
         read_token();
         t->sibling=VarDecMore();
         return t;
     }
     else {
-        error(line,"there is no TypeName to match");
+        error(line,"missing TypeName  ");
         read_token();
         return NULL;
     }
 }
 Node *VarDeclartion(){
     //output<<"VarDeclartion"<<endl;
-    if(token!="VAR")error(line,"there is no VAR to match");
+    if(token!="VAR")error(line,"missing VAR  ");
     read_token();
     Node *t=VarDecList();
-    if(t==NULL) error(line,"there is no VarDecList ");
+    if(t==NULL) error(line,"missing VarDecList ");
     return t;
 }
 Node *VarDec(){
@@ -830,7 +829,7 @@ Node *VarDec(){
     if(token=="PROCEDURE"||token=="BEGIN") return NULL;
     else if(token=="VAR"){ return VarDeclartion();}
     else {
-        error(line,"there is no PROCEDURE or BEGIN or VAR to match");
+        error(line,"missing VAR  ");
         read_token();
         return NULL;
     }
@@ -845,7 +844,7 @@ Node *TypeDecMore(){
     if(token=="VAR"||token=="PROGRAM"||token=="BEGIN"){ return NULL;}
     else if(type=="ID") {return TypeDecList();}
     else {
-        error(line,"there is no VAR or PROGRAM or BEGIN or ID to match");
+        error(line,"missing VAR or PROGRAM or BEGIN or ID  ");
         read_token();
         return NULL;
     }
@@ -856,7 +855,7 @@ void IdMore(Node *t){
     if(token==",") {read_token();IdList(t);}
     else if(token==";"){return ;}
     else {
-        error(line,"there is no , ; to match");
+        error(line,"missing ',' or ';' ");
         read_token();
     }
 }
@@ -864,7 +863,7 @@ void IdList(Node *t){/////read_token()部分不一样
     //output<<"IdList"<<endl;
     //read_token();
     if(type=="ID"){t->name[t->idnum++]=token;}//
-    else error(line,"there is no ID to match");
+    else error(line,"missing ID ");
     read_token();
     IdMore(t);
 }
@@ -876,7 +875,7 @@ Node *FieldDecMore(){
         return FieldDecList();
     }
     else {
-        error(line,"there is no END or INTGER or CHAR or ARRAY to match");
+        error(line,"missing INTEGER or CHAR or ARRAY");
         read_token();
         return NULL;
     }
@@ -887,47 +886,47 @@ Node *FieldDecList(){//域成员记录函数
     //read_token();
     if(token=="INTEGER"||token=="CHAR"){
         BaseType(t);IdList(t);
-        if(token!=";") error(line,"there is no ; to match");
+        if(token!=";") error(line,"missing ';'");
         read_token();
         t->sibling=FieldDecMore();
         return t;
     }
     else if(token=="ARRAY"){
         ArrayType(t);IdList(t);
-        if(token!=";") error(line,"there is no ; to match");
+        if(token!=";") error(line,"missing ';'");
         read_token();
         t->sibling=FieldDecMore();
         return t;
     }
     else {
-        error(line,"there is no INTEGER or CHAR or ARRAY to match");
+        error(line,"missing INTEGER or CHAR or ARRAY");
         read_token();
         return NULL;
     }
 }
 void RecType(Node *t){
     //output<<"RecType"<<endl;
-    if(token!="RECORD") error(line,"there is no RECORD to match");
+    if(token!="RECORD") error(line,"missing RECORD");
     read_token();
     Node *p=FieldDecList();
-    if(p==NULL) error(line,"there is no FieldDecList");
+    if(p==NULL) error(line,"missing FieldDecList");
     else t->child[0]=p;
-    if(token!="END") error(line,"there is no END to match");
+    if(token!="END") error(line,"missing END");
     read_token();
 }
 void ArrayType(Node *t){
     //output<<"ArrayType"<<endl;
-    if(token!="ARRAY")error(line,"there is no ARRAY to match");
-    read_token();if(token!="[") {error(line,"there is no [ to match");}
+    if(token!="ARRAY")error(line,"missing ARRAY ");
+    read_token();if(token!="[") {error(line,"missing '[' ");}
     read_token();
     if(type=="INTC") t->attr.ArrayAttr.low=atoi(token.c_str());
-    else {error(line,"there is no integer to match");}
-    read_token();if(token!="..") {error(line,"there is no .. to match");}
+    else {error(line,"missing INTEGER");}
+    read_token();if(token!="..") {error(line,"missing '..'");}
     read_token();
     if(type=="INTC") t->attr.ArrayAttr.up=atoi(token.c_str());
-    else {error(line,"there is no integer to match");}
-    read_token();if(token!="]") {error(line,"there is no ] to match");}
-    read_token();if(token!="OF") {error(line,"there is no OF to match");}
+    else {error(line,"missing INTEGER");}
+    read_token();if(token!="]") {error(line,"missing ']'");}
+    read_token();if(token!="OF") {error(line,"missing OF");}
     read_token();BaseType(t);
     t->attr.ArrayAttr.childtype=t->kind.dec;
     t->kind.dec=ArrayK;//kind.dec本来是array但是在数组基本类型的时候会被覆盖成基本类型的kind.dec，所以现在要改回来
@@ -954,7 +953,7 @@ void TypeName(Node *t){
     else if(token=="ARRAY"||token=="RECORD"){StructureType(t);}
     else if(type=="ID") {t->kind.dec=IdK;t->attr.type_name=token;read_token();}
     else {
-        error(line,"there is no match for TypeName");
+        error(line,"missing TypeName");
         read_token();
     }
 }
@@ -962,26 +961,26 @@ void TypeId(Node *t){
     //output<<"TypeId"<<endl;
     //if(has_unread==false) read_token();has_unread=false;
     if(type=="ID") t->name[t->idnum++]=token;
-    else error(line,"there is no match for ID");
+    else error(line,"missing ID");
     read_token();
 }
 Node *TypeDecList(){
     //output<<"TypeDecList"<<endl;
     Node *t=init_node();t->nodekind=DecK;
     TypeId(t);
-    if(token!="=") {error(line,"there is no match for =");}
+    if(token!="=") {error(line,"missing '='");}
     read_token();TypeName(t);
-    if(token!=";") {error(line,"there is no match for ;");}
+    if(token!=";") {error(line,"missing ';'");}
     read_token();Node *p=TypeDecMore();
     t->sibling=p;
     return t;
 }
 Node *TypeDeclaration(){
     //output<<"TypeDeclaration"<<endl;
-    if(token!="TYPE") error(line,"there is no TYPE to match");
+    if(token!="TYPE") error(line,"missing TYPE ");
     read_token();
     Node *t=TypeDecList();
-    if(t==NULL) error(line,"there is no TypeDecList to match");
+    if(t==NULL) error(line,"missing TypeDecList");
     return t;
 }
 Node *TypeDec(){
@@ -990,7 +989,7 @@ Node *TypeDec(){
     if(token=="TYPE") return TypeDeclaration();
     else if(token=="VAR"||token=="PROCEDURE"||token=="BEGIN"){  return NULL;}
     else {
-        error(line,"there is some key_word missing in declare_part");
+        error(line,"missing TYPE");
         read_token();
         return NULL;
     }
@@ -1010,10 +1009,10 @@ Node *declare_part(){
 }
 Node * program_head(){
     Node *t=init_node();t->nodekind=PheadK;
-    if(token!="PROGRAM"){error(line,"no correct program_head");}
+    if(token!="PROGRAM"){error(line,"missing PROGRAM");}
     read_token();
     if(type=="ID") {t->name[0]=token;}
-    else error(line,"no correct program_head");
+    else error(line,"missing program_name");
     read_token();
     return t;
 }
@@ -1024,7 +1023,7 @@ Node* program(){
     Node *s=program_body();
     Node *root=init_node();root->nodekind=ProK;
     root->child[0]=t; root->child[1]=q; root->child[2]=s;
-    if(token!=".") error(line,"there id no . in the end");
+    if(token!=".") error(line,"missing '.' ");
     read_token();
     return root;
 }

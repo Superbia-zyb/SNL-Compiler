@@ -151,14 +151,16 @@ class SymbolTable:
 
         if body is not None:
             tmp = []
+            lp = 0
             for x in body:
+                lp += 1
                 for na in x.name:
                     flag = False
                     for i in tmp:
                         if na == i.name:
                             flag = True
                     if flag:
-                        error(node.rawline, f"record {name} field member {na} duplicated")
+                        error(str(int(node.rawline) + lp), f"record {name} field member {na} duplicated")
                         continue
                     y = Kind(x)
                     y.name = na
@@ -304,7 +306,7 @@ def operator(node, op):
     return kindList[0]
 
 def generate_table(node):
-    global sl, scope,off
+    global sl, scope, off
     # ProK, PheadK, TypeK, VarK, ProDecK, StmLK, DecK, Stmtk, ExpK
     if node.nodeKind == "DecK":
         for x in node.name:
@@ -317,7 +319,6 @@ def generate_table(node):
                 body = []
                 for y in node.child:
                     body.append(y)
-
 
             tab = CallSymbolTable(node, x, level=sl, off=off, body=body)
             if tab is None:

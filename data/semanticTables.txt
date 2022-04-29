@@ -1,0 +1,82 @@
+line:0
+kind:IntegerK
+name:i
+level:0
+off:0
+ifType:False
+typePtr:{'kind': 'IntegerK', 'size': 2}
+
+line:0
+kind:IntegerK
+name:j
+level:0
+off:2
+ifType:False
+typePtr:{'kind': 'IntegerK', 'size': 2}
+
+line:0
+kind:IntegerK
+name:num
+level:0
+off:4
+ifType:False
+typePtr:{'kind': 'IntegerK', 'size': 2}
+
+line:0
+kind:ArrayK
+name:a
+level:0
+off:6
+ifType:False
+typePtr:{'kind': 'ArrayK', 'size': 38, 'arrayAttr': {'indexTy': {'low': '1', 'up': '20'}, 'elemTy': {'kind': 'IntegerK', 'size': 2}}, 'arrayKind': 'IntegerK'}
+
+line:0
+kind:ProcDecK
+name:q
+level:0
+off:44
+params:
+   {'kind': 'IntegerK', 'name': 'num'}
+ifType:False
+typePtr:{'kind': 'ProcDecK', 'size': 0}
+
+line:1
+kind:IntegerK
+name:num
+level:1
+off:0
+ifType:False
+typePtr:{'kind': 'IntegerK', 'size': 2}
+
+line:1
+kind:IntegerK
+name:i
+level:1
+off:2
+ifType:False
+typePtr:{'kind': 'IntegerK', 'size': 2}
+
+line:1
+kind:IntegerK
+name:j
+level:1
+off:4
+ifType:False
+typePtr:{'kind': 'IntegerK', 'size': 2}
+
+line:1
+kind:IntegerK
+name:k
+level:1
+off:6
+ifType:False
+typePtr:{'kind': 'IntegerK', 'size': 2}
+
+line:1
+kind:IntegerK
+name:t
+level:1
+off:8
+ifType:False
+typePtr:{'kind': 'IntegerK', 'size': 2}
+
