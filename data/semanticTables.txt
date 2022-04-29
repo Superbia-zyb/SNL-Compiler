@@ -14,17 +14,18 @@ off:2
 body:
    {'kind': 'IntegerK', 'size': 2, 'name': 'x'}
    {'kind': 'IntegerK', 'size': 2, 'name': 'y'}
+   {'kind': 'IntegerK', 'size': 2, 'name': 'z'}
    {'kind': 'CharK', 'size': 1, 'name': 'cx'}
    {'kind': 'CharK', 'size': 1, 'name': 'cy'}
    {'kind': 'ArrayK', 'size': 5, 'arrayAttr': {'indexTy': {'low': '0', 'up': '5'}, 'elemTy': {'kind': 'CharK', 'size': 1}}, 'arrayKind': 'CharK', 'name': 'cc'}
 ifType:False
-typePtr:{'kind': 'RecordK', 'size': 11}
+typePtr:{'kind': 'RecordK', 'size': 13}
 
 line:0
 kind:IntegerK
 name:v1
 level:0
-off:13
+off:15
 ifType:False
 typePtr:{'kind': 'IntegerK', 'size': 2}
 
@@ -32,7 +33,7 @@ line:0
 kind:IntegerK
 name:v2
 level:0
-off:15
+off:17
 ifType:False
 typePtr:{'kind': 'IntegerK', 'size': 2}
 
@@ -40,7 +41,7 @@ line:0
 kind:CharK
 name:c1
 level:0
-off:17
+off:19
 ifType:False
 typePtr:{'kind': 'CharK', 'size': 1}
 
@@ -48,7 +49,7 @@ line:0
 kind:CharK
 name:c2
 level:0
-off:18
+off:20
 ifType:False
 typePtr:{'kind': 'CharK', 'size': 1}
 
@@ -56,7 +57,7 @@ line:0
 kind:ArrayK
 name:a
 level:0
-off:19
+off:21
 ifType:False
 typePtr:{'kind': 'ArrayK', 'size': 8, 'arrayAttr': {'indexTy': {'low': '0', 'up': '4'}, 'elemTy': {'kind': 'IntegerK', 'size': 2}}, 'arrayKind': 'IntegerK'}
 
@@ -64,7 +65,7 @@ line:0
 kind:ProcDecK
 name:q
 level:0
-off:27
+off:29
 params:
    {'kind': 'IntegerK', 'name': 'i'}
    {'kind': 'IntegerK', 'name': 'j'}
@@ -75,7 +76,7 @@ line:0
 kind:ProcDecK
 name:p
 level:0
-off:27
+off:29
 params:
    {'kind': 'IntegerK', 'name': 'i'}
    {'kind': 'IntegerK', 'name': 'j'}

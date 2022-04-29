@@ -54,8 +54,8 @@ class Window(QWidget):
         self.SyntaxTreeLabel.setOpenExternalLinks(True)
 
         self.ChooseButton = QComboBox()
-        self.ChooseButton.addItem('递归下降分析')
         self.ChooseButton.addItem('LL1分析')
+        self.ChooseButton.addItem('递归下降分析')
 
         self.FormatButton = QPushButton("Format")
         self.ResetButton = QPushButton("Reset")
@@ -129,7 +129,7 @@ class Window(QWidget):
             f.write("")
         f.close()
 
-        result = work(self.ChooseButton.currentIndex())
+        result = work(self.ChooseButton.currentIndex() ^ 1)
         if result:
             url = os.getcwd()
             url = url.replace('\\', '/')

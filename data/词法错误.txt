@@ -1,0 +1,8 @@
+program p
+begin
+a:+i
+x:='c
+y:='+'
+z:=?
+end.
+

@@ -1,0 +1,33 @@
+program sd
+type sarray=array [0..5 of integer;
+
+w1=record
+    integer x;
+    char cx,cy;
+    array[0..5] of cc;
+    end;
+
+var
+sarray y;
+integer ss;
+array[0..4] of integer a;
+sarray b;
+ssarray zz;
+
+procedure sd(sarray ; char c);
+begin
+    write(a[10])
+end
+begin
+    ss:=0;
+    while ss 6 do
+        y[ss]:=b[zz[10]]
+        a(b,'c')
+    endwh;
+    w1 cc:='c';
+    w1 cc[1]:='c'
+end.
+
+
+
+

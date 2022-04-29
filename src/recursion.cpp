@@ -142,7 +142,7 @@ void read_token(){
 }
 int flag=0;
 void error(int ll,string s){
-    if(flag) return;
+//    if(flag) return;
     flag = true;
     cout<<"line:"<<ll+1<<" "<<s<<endl;
 }
@@ -283,7 +283,7 @@ while(t!=NULL){
 }
 }
 void match(string s){
-    if(token!=s) cout<<"line:"<<line<<" there misses "<<s<<" to match"<<endl;
+    if(token!=s) cout<<"line:"<<line+1<<" there misses "<<s<<" to match"<<endl;
     //read_token();
 }
 Node *init_node(){
@@ -326,7 +326,8 @@ Node *factor(){
         //output<<"====================="<<token<<endl;
         read_token();
         Node *t= Exp();
-        if(token!=")")error(line,"there is no ) to match");
+        if(token!=")")
+            error(line,"there is no ) to match");
 
         read_token();
         return t;
@@ -438,7 +439,7 @@ void variMore(Node *t){//w1.
         read_token();t->child[0]=fieldvar();//t->child[0]->attr.ExpAttr.varkind = IdV;
     }
     else {
-        error(line,"there is no . [ to match");
+        error(line+1,"there is no . [ to match");
         read_token();
     }
 }
@@ -611,7 +612,7 @@ Node *StmMore(){//只争对两个循环
     else {
 //
         error(line,"there is no correct to match1");
-        cout<<" "<<token<<endl;return NULL;
+        return NULL;
         read_token();
     }
 }

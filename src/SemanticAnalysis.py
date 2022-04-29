@@ -152,16 +152,17 @@ class SymbolTable:
         if body is not None:
             tmp = []
             for x in body:
-                flag = False
-                for i in tmp:
-                    if x.name[0] == i.name:
-                        flag = True
-                if flag:
-                    error(node.rawline, f"record {name} field member {x.name[0]} duplicated")
-                    continue
-                y = Kind(x)
-                y.name = x.name[0]
-                tmp.append(y)
+                for na in x.name:
+                    flag = False
+                    for i in tmp:
+                        if na == i.name:
+                            flag = True
+                    if flag:
+                        error(node.rawline, f"record {name} field member {na} duplicated")
+                        continue
+                    y = Kind(x)
+                    y.name = na
+                    tmp.append(y)
 
             self.body = tmp
         self.typePtr = Kind(node, self.body)
@@ -334,6 +335,7 @@ def generate_table(node):
                 return
             for x in node.child:
                 generate_table(x)
+
     elif node.nodeKind == "ProcDecK" and node.idnum > 0:
         if find(node.name[0], exist=True) is not None:
             error(node.rawline, "val duplicated:", node.name[0])
